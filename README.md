@@ -1,2 +1,3 @@
 # cosi-103a
-123123
+name: Zhenxu Chen
+email: zhenxuchen@brandeis.edu

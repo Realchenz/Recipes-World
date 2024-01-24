@@ -1,15 +1,19 @@
 import logo from './logo.svg';
 import { AiOutlineRest } from "react-icons/ai";
 import './App.css';
+import RecipeList from './components/RecipeList';
 
 const Header = () => {
   return (
-    <header className="app-header">
-      <div className="header-content">
-        <AiOutlineRest style={{ fontSize: '200%'}}/>
-        <h1>Amazing Recipes</h1>
-      </div>
-    </header>
+    <div>
+      <header className="app-header">
+        <div className="header-content">
+          <AiOutlineRest style={{ fontSize: '200%'}}/>
+          <h1>Amazing Recipes</h1>
+        </div>
+      </header>
+      <RecipeList />
+    </div>
   );
 };
 

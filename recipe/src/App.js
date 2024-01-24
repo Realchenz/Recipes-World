@@ -7,7 +7,7 @@ const Header = () => {
     <header className="app-header">
       <div className="header-content">
         <AiOutlineRest style={{ fontSize: '200%'}}/>
-        <h1>Recipe Hub</h1>
+        <h1>Amazing Recipes</h1>
       </div>
     </header>
   );

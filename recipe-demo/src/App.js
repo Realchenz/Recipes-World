@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import RecipeList from './components/RecipeList';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 function App() {
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
+
+  // const handleShowModal = (recipe) => {
+  //   setSelectedRecipe(recipe);
+  //   setShowModal(true);
+  // };
 
   return (
     <div className="App">
@@ -14,10 +18,10 @@ function App() {
       </header>
       <Container>
         <Row>      
-          <RecipeList onSelectRecipe={setSelectedRecipe} />
+          <RecipeList/>
         </Row>
         <Row>
-          {selectedRecipe && (
+          {/* {selectedRecipe && (
             <div className="recipe-details">
               <h2>{selectedRecipe.title}</h2>
               <p>{selectedRecipe.description}</p>
@@ -31,7 +35,7 @@ function App() {
               <p>{selectedRecipe.instructions}</p>
               <img src={selectedRecipe.image} alt={selectedRecipe.title} style={{ maxWidth: '300px', maxHeight: '300px' }} />
             </div>
-          )}
+          )} */}
         </Row>
       </Container>
     </div>

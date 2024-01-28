@@ -5,12 +5,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 function App() {
-
-  // const handleShowModal = (recipe) => {
-  //   setSelectedRecipe(recipe);
-  //   setShowModal(true);
-  // };
-
   return (
     <div className="App">
       <header className="App-header">
@@ -18,7 +12,7 @@ function App() {
       </header>
       <Container>
         <Row>      
-          <RecipeList/>
+          <RecipeList></RecipeList>
         </Row>
         <Row>
           {/* {selectedRecipe && (

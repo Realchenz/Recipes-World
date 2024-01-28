@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Button, Modal, Container, Row, Col } from 'react-bootstrap';
+import { Card, Button, Modal, Container} from 'react-bootstrap';
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 const RecipeList = () => {
   const recipes = [
@@ -95,22 +97,32 @@ const RecipeList = () => {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Col className="equal-width">
-                  <div className="recipe-details">
-                    <p>{selectedRecipe.description}</p>
-                    <h3>Ingredients:</h3>
-                    <ul>
-                      {selectedRecipe.ingredients.map((ingredient, index) => (
-                      <li key={index}>{ingredient}</li>
-                      ))}
-                    </ul>
-                    <h3>Instructions:</h3>
-                    <p>{selectedRecipe.instructions}</p>
-                  </div>
-                </Col>
-                <Col className="equal-width">
-                  <Card.Img variant="top" src={selectedRecipe.image} alt={selectedRecipe.title} style={{ width: '200px', height: '200px', marginBottom: '10px' }} />
-                </Col>
+              <Container>
+                <Row>
+                  <Col md={6}>
+                    <div style={{ maxWidth: '50%' }}>
+                      <p className="text-muted" style={{ wordWrap: 'break-word' }}>{selectedRecipe.description}</p>
+                      <h3>Ingredients:</h3>
+                      <ul>
+                        {selectedRecipe.ingredients.map((ingredient, index) => (
+                        <li key={index}>{ingredient}</li>
+                        ))}
+                      </ul>
+                      <h3>Instructions:</h3>
+                      <p className="text-muted" style={{ wordWrap: 'break-word' }}>{selectedRecipe.instructions}</p>
+                    </div>
+                  </Col>
+                  <Col md={6}>
+                    <div style={{ maxWidth: '50%' }}>
+                      <img 
+                        variant="top"
+                        src={selectedRecipe.image}
+                        alt={selectedRecipe.title}
+                        style={{ width: '200px', height: '200px', marginBottom: '10px' }} />
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
             </Modal.Body>
             <Modal.Footer>
               <Button

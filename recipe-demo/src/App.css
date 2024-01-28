@@ -54,6 +54,7 @@
 }
 
 .equal-width {
+  max-width: 50%;
   flex: 1;
 }
 

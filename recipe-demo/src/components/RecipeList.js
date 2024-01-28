@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Card, Button, Modal, Container} from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
@@ -73,8 +76,10 @@ const RecipeList = () => {
       <Row>
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           {recipes.map((recipe, index) => (
-            <Card key={index} style={{ width: '15rem', margin: '10px', backgroundColor: 'black', border: '1px solid white' }}>
-              <Card.Img variant="top" src={recipe.image} alt={recipe.title} style={{ width: '200px', height: '200px', marginBottom: '10px' }} />
+            <Card key={index} style={{ width: '18rem', height: '25rem', margin: '10px', backgroundColor: 'black', border: '1px solid white' }}>
+              <div className="d-flex justify-content-center align-items-center">
+                <Card.Img variant="top" src={recipe.image} alt={recipe.title} style={{ width: '17rem', height: '18rem', marginBottom: '10px' }} />
+              </div>
               <Card.Body>
                 <Card.Title style={{ fontSize: '1.2rem', marginBottom: '10px', color: 'white' }}>{recipe.title}</Card.Title>
                 <Button 

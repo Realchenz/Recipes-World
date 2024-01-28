@@ -53,9 +53,10 @@
   border-radius: 8px;
 }
 
-.equal-width {
-  max-width: 50%;
-  flex: 1;
+.custom-modal {
+  max-width: 80%;
+  max-height: 80%;
+  margin: 0 auto;
 }
 
 /* Add more custom styles here */

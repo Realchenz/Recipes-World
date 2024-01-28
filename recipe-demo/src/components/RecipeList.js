@@ -95,7 +95,7 @@ const RecipeList = () => {
       </Row>
       <Row>
         {selectedRecipe && (
-          <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal show={showModal} onHide={handleCloseModal} dialogClassName="custom-modal">
             <Modal.Header>
               <Modal.Title>
                 <h2>{selectedRecipe.title}</h2>
@@ -104,26 +104,26 @@ const RecipeList = () => {
             <Modal.Body>
               <Container>
                 <Row>
-                  <Col md={6}>
-                    <div style={{ maxWidth: '50%' }}>
-                      <p className="text-muted" style={{ wordWrap: 'break-word' }}>{selectedRecipe.description}</p>
-                      <h3>Ingredients:</h3>
+                  <Col xs={8}>
+                    <div>
+                      <p className="text-muted" style={{ wordWrap: 'break-word', fontSize: '14pt', fontStyle: 'italic' }}>{selectedRecipe.description}</p>
+                      <h3 style={{ fontSize: '24pt' }}>Ingredients:</h3>
                       <ul>
                         {selectedRecipe.ingredients.map((ingredient, index) => (
-                        <li key={index}>{ingredient}</li>
+                        <li key={index} style={{ fontSize: '14pt' }}>{ingredient}</li>
                         ))}
                       </ul>
-                      <h3>Instructions:</h3>
-                      <p className="text-muted" style={{ wordWrap: 'break-word' }}>{selectedRecipe.instructions}</p>
+                      <h3 style={{ fontSize: '24pt' }}>Instructions:</h3>
+                      <p className="text-muted" style={{ wordWrap: 'break-word', fontSize: '14pt' }}>{selectedRecipe.instructions}</p>
                     </div>
                   </Col>
-                  <Col md={6}>
-                    <div style={{ maxWidth: '50%' }}>
+                  <Col>
+                    <div>
                       <img 
                         variant="top"
                         src={selectedRecipe.image}
                         alt={selectedRecipe.title}
-                        style={{ width: '200px', height: '200px', marginBottom: '10px' }} />
+                        style={{ width: '300px', height: '300px', marginBottom: '10px' }} />
                     </div>
                   </Col>
                 </Row>

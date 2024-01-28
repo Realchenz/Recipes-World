@@ -1,4 +1,7 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+
 
 const RecipeList = ({ onSelectRecipe }) => {
   const recipes = [
@@ -55,13 +58,20 @@ const RecipeList = ({ onSelectRecipe }) => {
   ];
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {recipes.map((recipe, index) => (
-        <div key={index} onClick={() => onSelectRecipe(recipe)}>
-          <h3>{recipe.title}</h3>
-          <img src={recipe.image} alt={recipe.title} style={{ width: '100px', height: '100px' }} />
-          {/* You can add more info or an image thumbnail here */}
-        </div>
+        <Card key={index} style={{ width: '15rem', margin: '10px' }}>
+          <Card.Img variant="top" src={recipe.image} style={{ width: '200px', height: '200px', marginBottom: '10px' }} />
+          <Card.Body>
+            <Card.Title style={{ fontSize: '1.2rem', marginBottom: '10px' }}>{recipe.title}</Card.Title>
+            <Button style={{ padding: '6px 10px', fontSize: '1.0rem', marginBottom: '10px', backgroundColor: 'black', color: 'white' }} variant="primary" 
+              onClick={() => {
+                onSelectRecipe(recipe);
+              }}>
+              Details
+            </Button>
+          </Card.Body>
+        </Card>
       ))}
     </div>
   );

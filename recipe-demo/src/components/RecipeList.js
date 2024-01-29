@@ -84,7 +84,7 @@ const RecipeList = () => {
                 <Card.Title style={{ fontSize: '1.2rem', marginBottom: '10px', color: 'white' }}>{recipe.title}</Card.Title>
                 <Button 
                   style={{ padding: '6px 10px', fontSize: '1.0rem', marginBottom: '10px', backgroundColor: 'white', color: 'black' }}
-                  variant="primary" 
+                  variant="primary" index={index}
                   onClick={() => handleShowModal(recipe)}>
                   Details
                 </Button>

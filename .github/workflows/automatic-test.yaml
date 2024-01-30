@@ -1,0 +1,15 @@
+name: automatic-test
+run-name: ${{ github.actor }} made a pull request, starting automatic test
+on: [pull_request]
+jobs:
+  automatic-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+         ref: main
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - run: npm install
+      - run: npm run test

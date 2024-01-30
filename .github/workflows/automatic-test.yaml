@@ -12,4 +12,6 @@ jobs:
         with:
           node-version: '20'
       - run: npm install
+        working-directory: ./recipe-demo
       - run: npm run test
+        working-directory: ./recipe-demo

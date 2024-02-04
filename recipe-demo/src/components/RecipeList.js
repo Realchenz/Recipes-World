@@ -11,6 +11,7 @@ const RecipeList = () => {
   const recipes = [
     {
       title: "Spaghetti Carbonara",
+      id: 1,
       description: "A classic Italian pasta dish with eggs, cheese, pancetta, and pepper.",
       ingredients: ["Spaghetti", "Eggs", "Parmesan Cheese", "Pancetta", "Black Pepper"],
       instructions: "Cook pasta. In separate pan, cook pancetta. Whisk eggs and Parmesan, then combine with pasta and pancetta. Season with pepper.",
@@ -18,6 +19,7 @@ const RecipeList = () => {
     },
     {
       title: "Classic Margherita Pizza",
+      id: 2,
       description: "A simple yet delicious pizza with tomatoes, mozzarella cheese, and fresh basil.",
       ingredients: ["Pizza Dough", "Tomato Sauce", "Mozzarella Cheese", "Fresh Basil", "Olive Oil"],
       instructions: "Roll out dough, apply sauce, add cheese and basil. Bake in a preheated oven until crust is golden.",
@@ -25,6 +27,7 @@ const RecipeList = () => {
     },
     {
       title: "Chicken Caesar Salad",
+      id: 3,
       description: "A fresh, creamy, and classic Caesar salad with grilled chicken.",
       ingredients: ["Romaine lettuce", "Grilled chicken breast", "Caesar dressing", "Croutons", "Parmesan cheese"],
       instructions: "Chop lettuce and slice grilled chicken. Toss lettuce, chicken, croutons, and Parmesan cheese with Caesar dressing. Serve chilled.",
@@ -32,6 +35,7 @@ const RecipeList = () => {
     },
     {
       title: "Vegetable Stir-Fry",
+      id: 4,
       description: "A healthy and colorful vegetable stir-fry with a flavorful sauce.",
       ingredients: ["Mixed vegetables (bell peppers, broccoli, carrots, snap peas)", "Soy sauce", "Garlic", "Ginger", "Olive oil"],
       instructions: "Heat olive oil in a pan over medium heat. Add minced garlic and ginger, sauté for a minute. Add vegetables and stir-fry until tender. Add soy sauce and stir to coat. Serve hot.",
@@ -39,6 +43,7 @@ const RecipeList = () => {
     },
     {
       title: "Classic Beef Tacos",
+      id: 5,
       description: "Tasty and easy-to-make beef tacos with fresh toppings.",
       ingredients: ["Ground beef", "Taco seasoning", "Tortillas", "Shredded lettuce", "Diced tomatoes","Shredded cheese","Sour cream"],
       instructions: "Cook ground beef with taco seasoning. Warm tortillas as per package instructions. Assemble tacos with beef, lettuce, tomatoes, cheese, and a dollop of sour cream.",
@@ -46,6 +51,7 @@ const RecipeList = () => {
     },
     {
       title: "Lemon Garlic Shrimp Pasta",
+      id: 6,
       description: "A light and zesty pasta dish with succulent shrimp.",
       ingredients: ["Pasta", "Shrimp, peeled and deveined", "Lemon juice", "Garlic", "Olive oil","Parsley"],
       instructions: "Cook pasta as per package instructions. Sauté garlic in olive oil, add shrimp, and cook until pink. Add lemon juice to shrimp and heat through. Toss cooked pasta with shrimp and garnish with parsley.",
@@ -53,6 +59,7 @@ const RecipeList = () => {
     },
     {
       title: "Grilled Cheese Sandwich",
+      id: 7,
       description: "A classic, gooey grilled cheese sandwich.",
       ingredients: ["2 slices of bread", "2 slices of cheddar cheese", "Butter"],
       instructions: "Butter one side of each bread slice. Place cheese slices between the bread (buttered sides out). Heat a pan over medium heat. Cook the sandwich until golden brown on each side and the cheese is melted.",
@@ -79,25 +86,27 @@ const RecipeList = () => {
           <Container>
             <Row>
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {recipes.map((recipe, index) => (
-                  <Card key={index} style={{ width: '18rem', height: '25rem', margin: '10px', backgroundColor: 'black', border: '1px solid white' }}>
+                {recipes.map((recipe) => (
+                  <Card key={recipe.id} style={{ width: '18rem', height: '25rem', margin: '10px', backgroundColor: 'black', border: '1px solid white' }}>
                     <div className="d-flex justify-content-center align-items-center">
                       <Card.Img variant="top" src={recipe.image} alt={recipe.title} style={{ width: '17rem', height: '18rem', marginBottom: '10px' }} />
                     </div>
                     <Card.Body>
                       <Card.Title style={{ fontSize: '1.2rem', marginBottom: '10px', color: 'white' }}>{recipe.title}</Card.Title>
-                      <Button 
-                        style={{ padding: '6px 10px', fontSize: '1.0rem', marginBottom: '10px', backgroundColor: 'white', color: 'black' }}
-                        variant="primary" index={index}
-                        onClick={() => handleShowModal(recipe)}>
-                        Details
-                      </Button>
+                      <Link to={`/recipes/${recipe.id}`}>
+                        <Button 
+                          style={{ padding: '6px 10px', fontSize: '1.0rem', marginBottom: '10px', backgroundColor: 'white', color: 'black' }}
+                          variant="primary" index={recipe.id}
+                          onClick={() => handleShowModal(recipe)}>
+                          Details
+                        </Button>
+                      </Link>
                     </Card.Body>
                   </Card>
                 ))}
               </div>
             </Row>
-            <Row>
+            {/* <Row>
               {selectedRecipe && (
                 <Modal show={showModal} onHide={handleCloseModal} dialogClassName="custom-modal">
                   <Modal.Header>
@@ -143,9 +152,12 @@ const RecipeList = () => {
                   </Modal.Footer>
                 </Modal>
               )}
-            </Row>
+            </Row> */}
           </Container>
         </Route>
+        {recipes.map((recipe) => (
+          <Route key={recipe.id} path={`/recipes/${recipe.id}`}></Route>
+        ))}
       </Switch>
     </Router>
   );

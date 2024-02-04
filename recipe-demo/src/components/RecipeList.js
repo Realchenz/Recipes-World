@@ -5,6 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 const RecipeList = () => {
   const recipes = [
@@ -72,75 +73,81 @@ const RecipeList = () => {
   };
 
   return (
-    <Container>
-      <Row>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {recipes.map((recipe, index) => (
-            <Card key={index} style={{ width: '18rem', height: '25rem', margin: '10px', backgroundColor: 'black', border: '1px solid white' }}>
-              <div className="d-flex justify-content-center align-items-center">
-                <Card.Img variant="top" src={recipe.image} alt={recipe.title} style={{ width: '17rem', height: '18rem', marginBottom: '10px' }} />
+    <Router>
+      <Switch>
+        <Route exact path="/recipes">
+          <Container>
+            <Row>
+              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {recipes.map((recipe, index) => (
+                  <Card key={index} style={{ width: '18rem', height: '25rem', margin: '10px', backgroundColor: 'black', border: '1px solid white' }}>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <Card.Img variant="top" src={recipe.image} alt={recipe.title} style={{ width: '17rem', height: '18rem', marginBottom: '10px' }} />
+                    </div>
+                    <Card.Body>
+                      <Card.Title style={{ fontSize: '1.2rem', marginBottom: '10px', color: 'white' }}>{recipe.title}</Card.Title>
+                      <Button 
+                        style={{ padding: '6px 10px', fontSize: '1.0rem', marginBottom: '10px', backgroundColor: 'white', color: 'black' }}
+                        variant="primary" index={index}
+                        onClick={() => handleShowModal(recipe)}>
+                        Details
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                ))}
               </div>
-              <Card.Body>
-                <Card.Title style={{ fontSize: '1.2rem', marginBottom: '10px', color: 'white' }}>{recipe.title}</Card.Title>
-                <Button 
-                  style={{ padding: '6px 10px', fontSize: '1.0rem', marginBottom: '10px', backgroundColor: 'white', color: 'black' }}
-                  variant="primary" index={index}
-                  onClick={() => handleShowModal(recipe)}>
-                  Details
-                </Button>
-              </Card.Body>
-            </Card>
-          ))}
-        </div>
-      </Row>
-      <Row>
-        {selectedRecipe && (
-          <Modal show={showModal} onHide={handleCloseModal} dialogClassName="custom-modal">
-            <Modal.Header>
-              <Modal.Title>
-                <h2>{selectedRecipe.title}</h2>
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Container>
-                <Row>
-                  <Col xs={8}>
-                    <div>
-                      <p className="text-muted" style={{ wordWrap: 'break-word', fontSize: '14pt', fontStyle: 'italic' }}>{selectedRecipe.description}</p>
-                      <h3 style={{ fontSize: '24pt' }}>Ingredients:</h3>
-                      <ul>
-                        {selectedRecipe.ingredients.map((ingredient, index) => (
-                        <li key={index} style={{ fontSize: '14pt' }}>{ingredient}</li>
-                        ))}
-                      </ul>
-                      <h3 style={{ fontSize: '24pt' }}>Instructions:</h3>
-                      <p className="text-muted" style={{ wordWrap: 'break-word', fontSize: '14pt' }}>{selectedRecipe.instructions}</p>
-                    </div>
-                  </Col>
-                  <Col>
-                    <div>
-                      <img 
-                        variant="top"
-                        src={selectedRecipe.image}
-                        alt={selectedRecipe.title}
-                        style={{ width: '300px', height: '300px', marginBottom: '10px' }} />
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                style={{ padding: '6px 10px', fontSize: '1.0rem', marginBottom: '10px', backgroundColor: 'black', color: 'white' }} 
-                variant="secondary"
-                onClick={handleCloseModal}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        )}
-      </Row>
-    </Container>
+            </Row>
+            <Row>
+              {selectedRecipe && (
+                <Modal show={showModal} onHide={handleCloseModal} dialogClassName="custom-modal">
+                  <Modal.Header>
+                    <Modal.Title>
+                      <h2>{selectedRecipe.title}</h2>
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <Container>
+                      <Row>
+                        <Col xs={8}>
+                          <div>
+                            <p className="text-muted" style={{ wordWrap: 'break-word', fontSize: '14pt', fontStyle: 'italic' }}>{selectedRecipe.description}</p>
+                            <h3 style={{ fontSize: '24pt' }}>Ingredients:</h3>
+                            <ul>
+                              {selectedRecipe.ingredients.map((ingredient, index) => (
+                              <li key={index} style={{ fontSize: '14pt' }}>{ingredient}</li>
+                              ))}
+                            </ul>
+                            <h3 style={{ fontSize: '24pt' }}>Instructions:</h3>
+                            <p className="text-muted" style={{ wordWrap: 'break-word', fontSize: '14pt' }}>{selectedRecipe.instructions}</p>
+                          </div>
+                        </Col>
+                        <Col>
+                          <div>
+                            <img 
+                              variant="top"
+                              src={selectedRecipe.image}
+                              alt={selectedRecipe.title}
+                              style={{ width: '300px', height: '300px', marginBottom: '10px' }} />
+                          </div>
+                        </Col>
+                      </Row>
+                    </Container>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button
+                      style={{ padding: '6px 10px', fontSize: '1.0rem', marginBottom: '10px', backgroundColor: 'black', color: 'white' }} 
+                      variant="secondary"
+                      onClick={handleCloseModal}>
+                      Close
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+              )}
+            </Row>
+          </Container>
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 

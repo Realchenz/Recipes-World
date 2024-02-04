@@ -152,8 +152,7 @@ const RecipeList = () => {
       </Container>
       <Routes>
         {recipes.map((recipe) => (
-          <Route key={recipe.id} path={`/recipes/${recipe.id}`}
-            element ={<RecipeDetail recipe={recipe} />} />
+          <Route key={recipe.id} path={`/recipes/${recipe.id}`} element={<RecipeDetail recipe={recipe} />} />
         ))}
       </Routes>
     </Router>

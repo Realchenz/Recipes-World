@@ -68,16 +68,16 @@ const RecipeList = () => {
   ];
 
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
-  const handleShowModal = (recipe) => {
-    setSelectedRecipe(recipe);
-    setShowModal(true);
-  };
+  // const handleShowModal = (recipe) => {
+  //   setSelectedRecipe(recipe);
+  //   setShowModal(true);
+  // };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+  // const handleCloseModal = () => {
+  //   setShowModal(false);
+  // };
 
   return (
     <Router>
@@ -156,7 +156,9 @@ const RecipeList = () => {
           </Container>
         </Route>
         {recipes.map((recipe) => (
-          <Route key={recipe.id} path={`/recipes/${recipe.id}`}></Route>
+          <Route key={recipe.id} path={`/recipes/${recipe.id}`}>
+            <RecipeDetail recipe={recipe} />
+          </Route>
         ))}
       </Switch>
     </Router>

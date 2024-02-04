@@ -4,7 +4,6 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import RecipeDetail from "./RecipeDetail/RecipeDetail.js";
 
 const RecipeList = () => {
   const recipes = [
@@ -66,20 +65,7 @@ const RecipeList = () => {
     },
   ];
 
-  // const [selectedRecipe, setSelectedRecipe] = useState(null);
-  // const [showModal, setShowModal] = useState(false);
-
-  // const handleShowModal = (recipe) => {
-  //   setSelectedRecipe(recipe);
-  //   setShowModal(true);
-  // };
-
-  // const handleCloseModal = () => {
-  //   setShowModal(false);
-  // };
-
   return (
-    <Router>
       <Container>
         <Row>
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -102,60 +88,7 @@ const RecipeList = () => {
             ))}
           </div>
         </Row>
-        {/* <Row>
-          {selectedRecipe && (
-            <Modal show={showModal} onHide={handleCloseModal} dialogClassName="custom-modal">
-              <Modal.Header>
-                <Modal.Title>
-                  <h2>{selectedRecipe.title}</h2>
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Container>
-                  <Row>
-                    <Col xs={8}>
-                      <div>
-                        <p className="text-muted" style={{ wordWrap: 'break-word', fontSize: '14pt', fontStyle: 'italic' }}>{selectedRecipe.description}</p>
-                        <h3 style={{ fontSize: '24pt' }}>Ingredients:</h3>
-                        <ul>
-                          {selectedRecipe.ingredients.map((ingredient, index) => (
-                          <li key={index} style={{ fontSize: '14pt' }}>{ingredient}</li>
-                          ))}
-                        </ul>
-                        <h3 style={{ fontSize: '24pt' }}>Instructions:</h3>
-                        <p className="text-muted" style={{ wordWrap: 'break-word', fontSize: '14pt' }}>{selectedRecipe.instructions}</p>
-                      </div>
-                    </Col>
-                    <Col>
-                      <div>
-                        <img 
-                          variant="top"
-                          src={selectedRecipe.image}
-                          alt={selectedRecipe.title}
-                          style={{ width: '300px', height: '300px', marginBottom: '10px' }} />
-                      </div>
-                    </Col>
-                  </Row>
-                </Container>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button
-                  style={{ padding: '6px 10px', fontSize: '1.0rem', marginBottom: '10px', backgroundColor: 'black', color: 'white' }} 
-                  variant="secondary"
-                  onClick={handleCloseModal}>
-                  Close
-                </Button>
-              </Modal.Footer>
-            </Modal>
-          )}
-        </Row> */}
       </Container>
-      <Routes>
-        {recipes.map((recipe) => (
-          <Route key={recipe.id} path={`/recipes/${recipe.id}`} element={<RecipeDetail recipe={recipe} />} />
-        ))}
-      </Routes>
-    </Router>
   );
 };
 

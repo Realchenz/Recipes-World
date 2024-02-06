@@ -1,8 +1,9 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const RecipeDetail = ( {recipes} ) => {
 
@@ -41,6 +42,15 @@ const RecipeDetail = ( {recipes} ) => {
                 style={{ width: '100%', height: '300px', objectFit: 'cover' }}
               />
             </Col>
+          </Row>
+          <Row>
+            <Link to={`/`}>
+              <Button 
+                style={{ padding: '6px 10px', fontSize: '1.0rem', marginBottom: '10px', backgroundColor: 'white', color: 'black' }}
+                variant="primary" index={recipe.id}>
+                Back To Home
+              </Button>
+            </Link>
           </Row>
         </Col>
       </Row>

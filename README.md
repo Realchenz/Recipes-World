@@ -12,6 +12,7 @@ name: Yifei Zhou
 email:yifeizhou@brandeis.edu
 
 Descriptions:
+
 The landing page displays summaries of 8 recipes, which includes the recipe title, an image, and a link to the details page for the recipe.
 
 By clicking the detail button of each recipe, user will be navigated to the recipe detail page for that recipe. The recipe details pages include the recipe title, description, ingredients, steps, and an image.

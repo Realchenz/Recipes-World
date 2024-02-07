@@ -20,3 +20,10 @@ By clicking the detail button of each recipe, user will be navigated to the reci
 We also add a return button that allow you to go back to the landing page in each details page.
 
 The routes are set up in the App.js file. Each recipe detail (total 8) has its own route using dynamic segment. The landing page route directs to the RecipeList component.
+
+Instructions:
+1. git clone git@github.com:Ailuruscp/cosi-103a.git
+2. cd recipe-demo
+3. npm install
+4. npm start
+   

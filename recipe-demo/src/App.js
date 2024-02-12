@@ -82,9 +82,6 @@ const App = () => {
       <div className="App">
         <header className="App-header">
           <h1>My Recipe Book</h1>
-          <nav>
-            <Link to="/">Home</Link> | <Link to="/team">Meet Our Team</Link>
-          </nav>
         </header>
         <Navbar expand="lg" className="bg-body-tertiary">
           <Container>

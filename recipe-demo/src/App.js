@@ -4,6 +4,9 @@ import RecipeList from './components/RecipeList';
 import RecipeDetail from "./components/RecipeDetail/RecipeDetail";
 import TeamPage from "./components/TeamPage/TeamPage";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 const App = () => {
 
@@ -83,6 +86,11 @@ const App = () => {
             <Link to="/">Home</Link> | <Link to="/team">Meet Our Team</Link>
           </nav>
         </header>
+        <Navbar expand="lg" className="bg-body-tertiary">
+          <Container>
+            <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          </Container>
+        </Navbar>
         <Routes>
           <Route path="/" element={<RecipeList recipes={recipes}/>} />
           <Route path="/recipes/:id" element={<RecipeDetail recipes={recipes}/>} />

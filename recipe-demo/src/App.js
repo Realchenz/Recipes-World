@@ -4,6 +4,7 @@ import RecipeList from './components/RecipeList';
 import RecipeDetail from "./components/RecipeDetail/RecipeDetail";
 import TeamPage from "./components/TeamPage/TeamPage";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+=======
 
 const App = () => {
 
@@ -64,6 +65,14 @@ const App = () => {
       instructions: "Butter one side of each bread slice. Place cheese slices between the bread (buttered sides out). Heat a pan over medium heat. Cook the sandwich until golden brown on each side and the cheese is melted.",
       image: "https://www.allrecipes.com/thmb/ICeU6n3kGzoTxOV4ONB0q_TpgYk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/125434-GrilledCheeseoftheGods-mfs-3x2-067-267097af4d0b446ab646bba044445147.jpg"
     },
+    {
+      title: "Kung Pao Chicken",
+      id: 8,
+      description: "A classic Chinese takeout dish of stir-fried chicken, peanuts, and vegetables, is easy to make at home.",
+      ingredients: ["2 tablespoons cornstarch", "2 tablespoons white wine", "2 tablespoons soy sauce", "2 tablespoons sesame oil", "1 pound skinless, boneless chicken breast halves", "1 ounce hot chili paste", "2 teaspoons brown sugar", "1 teaspoon distilled white vinegar", "1 (8 ounce) can water chestnuts", "4 ounces chopped peanuts", "4 green onions, chopped", "1 tablespoon chopped garlic"],
+      instructions: "Combine water and cornstarch in a cup; set aside. Combine 1 tablespoon wine, 1 tablespoon soy sauce, 1 tablespoon sesame oil, and 1 tablespoon cornstarch/water mixture in a large glass bowl. Add chicken pieces and toss to coat. Cover the dish and refrigerate for about 30 minutes.",
+      image: "https://www.onceuponachef.com/images/2018/05/Kung-Pao-Chicken-16-1660x2048.jpg"
+    }
   ];
 
   return (

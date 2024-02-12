@@ -88,7 +88,7 @@ const App = () => {
         </header>
         <Navbar expand="lg" className="bg-body-tertiary">
           <Container>
-            <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+            <Navbar.Brand href="/">Home</Navbar.Brand>
           </Container>
         </Navbar>
         <Routes>

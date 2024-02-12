@@ -89,6 +89,7 @@ const App = () => {
         <Navbar expand="lg" className="bg-body-tertiary">
           <Container>
             <Navbar.Brand href="/">Home</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
           </Container>
         </Navbar>
         <Routes>

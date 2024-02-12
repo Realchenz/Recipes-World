@@ -3,7 +3,11 @@ import './App.css';
 import RecipeList from './components/RecipeList';
 import RecipeDetail from "./components/RecipeDetail/RecipeDetail";
 import TeamPage from "./components/TeamPage/TeamPage";
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const App = () => {
 
@@ -79,10 +83,23 @@ const App = () => {
       <div className="App">
         <header className="App-header">
           <h1>My Recipe Book</h1>
-          <nav>
-            <Link to="/">Home</Link> | <Link to="/team">Meet Our Team</Link>
-          </nav>
         </header>
+        <Navbar expand="lg" className="bg-body-tertiary">
+          <Container>
+            <Navbar.Brand href="/">Home Page</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+                <Nav.Link href="/team">Team Page</Nav.Link>
+                <NavDropdown title="Recipes Links" id="basic-nav-dropdown">
+                  {recipes.map((recipe) => (
+                    <NavDropdown.Item href={"/recipes/" + recipe.id}>{recipe.title}</NavDropdown.Item>
+                  ))}
+                </NavDropdown>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
         <Routes>
           <Route path="/" element={<RecipeList recipes={recipes}/>} />
           <Route path="/recipes/:id" element={<RecipeDetail recipes={recipes}/>} />

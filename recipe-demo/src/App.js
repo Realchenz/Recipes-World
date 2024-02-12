@@ -2,7 +2,9 @@ import React from 'react';
 import './App.css';
 import RecipeList from './components/RecipeList';
 import RecipeDetail from "./components/RecipeDetail/RecipeDetail";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TeamPage from "./components/TeamPage/TeamPage";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+=======
 
 const App = () => {
 
@@ -74,17 +76,21 @@ const App = () => {
   ];
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>My Recipe Book</h1>
-      </header>
-      <Router>
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          <h1>My Recipe Book</h1>
+          <nav>
+            <Link to="/">Home</Link> | <Link to="/team">Meet Our Team</Link>
+          </nav>
+        </header>
         <Routes>
-          <Route path="/" element={<RecipeList recipes={recipes}/>} />  
-          <Route path="/recipes/:id" element={<RecipeDetail recipes={recipes}/>} />   
+          <Route path="/" element={<RecipeList recipes={recipes}/>} />
+          <Route path="/recipes/:id" element={<RecipeDetail recipes={recipes}/>} />
+          <Route path="/team" element={<TeamPage />} />
         </Routes>
-      </Router> 
-    </div>
+      </div>
+    </Router>
   );
 }
 

@@ -4,7 +4,6 @@ import RecipeList from './components/RecipeList';
 import RecipeDetail from "./components/RecipeDetail/RecipeDetail";
 import TeamPage from "./components/TeamPage/TeamPage";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-=======
 
 const App = () => {
 

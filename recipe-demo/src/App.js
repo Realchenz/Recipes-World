@@ -118,13 +118,11 @@ const App = () => {
                     <NavDropdown.Item href={"/recipes/" + recipe.id}>{recipe.title}</NavDropdown.Item>
                   ))}
                 </NavDropdown>
+                <Nav.Link onClick={handleShow}>Grocery List</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
-      <Button variant="primary" onClick={handleShow}>
-        Grocery List
-      </Button>
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>

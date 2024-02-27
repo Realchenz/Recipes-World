@@ -28,15 +28,17 @@ const App = () => {
   const handleAddToGroceryList = (ingredient) => {
     handleShow();
     setGroceryList((prevList) => {
-      localStorage.setItem('groceryData', JSON.stringify([...prevList,ingredient]))
-      return [...prevList, ingredient]
+      prevList = [...prevList,ingredient]
+      localStorage.setItem('groceryData', JSON.stringify(prevList))
+      return prevList
     });
   };
 
   const handleRemoveFromGroceryList = (ingredient) => {
     setGroceryList((prevList) => {
-      localStorage.setItem('groceryData', JSON.stringify(prevList.filter((item) => item !== ingredient)))
-      return prevList.filter((item) => item !== ingredient)
+      prevList = prevList.filter((item) => item !== ingredient)
+      localStorage.setItem('groceryData', JSON.stringify(prevList))
+      return prevList
     });
   };
 

@@ -94,7 +94,7 @@ const App = () => {
       title: "Kung Pao Chicken",
       id: 8,
       description: "A classic Chinese takeout dish of stir-fried chicken, peanuts, and vegetables, is easy to make at home.",
-      ingredients: ["2 tablespoons cornstarch", "2 tablespoons white wine", "2 tablespoons soy sauce", "2 tablespoons sesame oil", "1 pound skinless, boneless chicken breast halves", "1 ounce hot chili paste", "2 teaspoons brown sugar", "1 teaspoon distilled white vinegar", "1 (8 ounce) can water chestnuts", "4 ounces chopped peanuts", "4 green onions, chopped", "1 tablespoon chopped garlic"],
+      ingredients: ["Cornstarch", "White Wine", "Soy Sauce", "Sesame Oil", "Chicken Breast Halves", "Hot Chili Paste", "Brown Sugar", "Distilled White Vinegar", "Can Water Chestnuts", "Chopped Peanuts", "Chopped Onions", "Chopped Garlic"],
       instructions: "Combine water and cornstarch in a cup; set aside. Combine 1 tablespoon wine, 1 tablespoon soy sauce, 1 tablespoon sesame oil, and 1 tablespoon cornstarch/water mixture in a large glass bowl. Add chicken pieces and toss to coat. Cover the dish and refrigerate for about 30 minutes.",
       image: "https://www.onceuponachef.com/images/2018/05/Kung-Pao-Chicken-16-1660x2048.jpg"
     }

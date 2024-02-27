@@ -137,11 +137,18 @@ const App = () => {
                 <li key={index}>
                   <Container>
                     <Row>
-                      <Col xs={12} md={6} order={1}>
+                      <Col md={8} order={1}>
                         {item}
                       </Col>
-                      <Col xs={4} md={6} order={2}>
-                        <Button onClick={() => handleRemoveFromGroceryList(item)}>Remove</Button>
+                      <Col md={3} order={2}>
+                        <Button
+                          onClick={() => handleRemoveFromGroceryList(item)}
+                          style={{ padding: '2px 6px', fontSize: '0.8rem',
+                            marginBottom: '10px', backgroundColor: 'white', color: 'black' }}
+                          variant="primary"
+                        >
+                          Remove
+                        </Button>
                       </Col>                      
                     </Row>
                   </Container>

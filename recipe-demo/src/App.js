@@ -14,11 +14,24 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas'; // Add this line
 
 const App = () => {
-  const [groceryList, setGroceryList] = useState([]);
+  const getLocalStorage = () => {
+    const groceryData = localStorage.getItem('groceryData')
+    if (groceryData) {
+      return JSON.parse(groceryData)
+    } else {
+      return []
+    }
+  }
+
+  const [groceryList, setGroceryList] = useState(getLocalStorage);
 
   const handleAddToGroceryList = (ingredient) => {
-    setGroceryList((prevList) => [...prevList, ingredient]);
     handleShow();
+    setGroceryList((prevList) => {
+      localStorage.setItem('groceryData', JSON.stringify([...prevList,ingredient]))
+      return [...prevList, ingredient]
+    }
+    );
   };
 
   const handleRemoveFromGroceryList = (ingredient) => {

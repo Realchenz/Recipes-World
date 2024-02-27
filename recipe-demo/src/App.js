@@ -144,9 +144,9 @@ const App = () => {
                         <Button
                           onClick={() => handleRemoveFromGroceryList(item)}
                           style={{ padding: '2px 6px', fontSize: '0.8rem',
-                            marginBottom: '10px', backgroundColor: 'white', color: 'black' }}
-                          variant="primary"
-                        >
+                                   marginBottom: '10px', backgroundColor: 'white',
+                                   color: 'black' }}
+                          variant="primary">
                           Remove
                         </Button>
                       </Col>                      

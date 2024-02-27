@@ -36,10 +36,11 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
                     <li key={index} style={{ fontSize: '16px' }}>
                       {ingredient}
                       <Button
-                        style={{ marginLeft: '10px' }}
-                        variant="primary"
                         onClick={() => handleAddToGroceryList(ingredient)}
-                      >
+                        style={{ padding: '2px 6px', fontSize: '0.8rem',
+                                 marginBottom: '10px', backgroundColor: 'white', 
+                                 color: 'black' }}
+                        variant="primary">
                         Add to Grocery List
                       </Button>
                     </li>
@@ -61,16 +62,11 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
           <Row>
             <Link to={`/`}>
               <Button
-                style={{
-                  padding: '6px 10px',
-                  fontSize: '1.0rem',
-                  marginBottom: '10px',
-                  backgroundColor: 'white',
-                  color: 'black',
+                style={{ padding: '6px 10px', fontSize: '1.0rem',
+                  marginBottom: '10px', backgroundColor: 'white', color: 'black',
                 }}
                 variant="primary"
-                index={recipe.id}
-              >
+                index={recipe.id}>
                 Back To Home
               </Button>
             </Link>

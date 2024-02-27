@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import RecipeList from './components/RecipeList';
 import RecipeDetail from "./components/RecipeDetail/RecipeDetail";
@@ -8,8 +8,22 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Button from 'react-bootstrap/Button';
 
 const App = () => {
+  const [groceryList, setGroceryList] = useState([]);
+
+  const handleAddToGroceryList = (ingredient) => {
+    setGroceryList((prevList) => [...prevList, ingredient]);
+  };
+
+  const handleRemoveFromGroceryList = (ingredient) => {
+    setGroceryList((prevList) => prevList.filter((item) => item !== ingredient));
+  };
+
+  const handleClearGroceryList = () => {
+    setGroceryList([]);
+  };
 
   const recipes = [
     {
@@ -100,14 +114,32 @@ const App = () => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
+        <div className="grocery-list">
+          <h2>Grocery List</h2>
+          <ul>
+            {groceryList.map((item, index) => (
+              <li key={index}>
+                {item}
+                <Button onClick={() => handleRemoveFromGroceryList(item)}>Remove</Button>
+              </li>
+            ))}
+          </ul>
+          <Button onClick={handleClearGroceryList}>Clear List</Button>
+        </div>
         <Routes>
-          <Route path="/" element={<RecipeList recipes={recipes}/>} />
-          <Route path="/recipes/:id" element={<RecipeDetail recipes={recipes}/>} />
+          <Route
+            path="/"
+            element={<RecipeList recipes={recipes} addToGroceryList={handleAddToGroceryList} />}
+          />
+          <Route
+            path="/recipes/:id"
+            element={<RecipeDetail recipes={recipes} addToGroceryList={handleAddToGroceryList} />}
+          />
           <Route path="/team" element={<TeamPage />} />
         </Routes>
       </div>
     </Router>
   );
-}
+};
 
 export default App;

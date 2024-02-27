@@ -5,17 +5,21 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useParams, Link } from 'react-router-dom';
 
-const RecipeDetail = ( {recipes} ) => {
 
-	const { id } = useParams();
-	const recipe = recipes.find((recipe) => recipe.id === parseInt(id));
+const RecipeDetail = ({ recipes, addToGroceryList }) => {
+  const { id } = useParams();
+  const recipe = recipes.find((recipe) => recipe.id === parseInt(id));
 
-	if (!recipe) {
-		// Handle case where recipe is not found
-		return <div>Recipe not found</div>;
-	}
+  if (!recipe) {
+    // Handle case where recipe is not found
+    return <div>Recipe not found</div>;
+  }
 
-	return (
+  const handleAddToGroceryList = (ingredient) => {
+    addToGroceryList(ingredient);
+  };
+
+  return (
     <Container className="mt-5">
       <Row className="justify-content-center">
         <Col xs={10} lg={8}>
@@ -23,11 +27,22 @@ const RecipeDetail = ( {recipes} ) => {
           <Row className="mb-4">
             <Col xs={12} md={6} order={1}>
               <div className="text-muted">
-                <p className="mb-3" style={{ fontSize: '18px', fontStyle: 'italic' }}>{recipe.description}</p>
+                <p className="mb-3" style={{ fontSize: '18px', fontStyle: 'italic' }}>
+                  {recipe.description}
+                </p>
                 <h3 className="mb-3">Ingredients:</h3>
                 <ul className="list-unstyled">
                   {recipe.ingredients.map((ingredient, index) => (
-                    <li key={index} style={{ fontSize: '16px' }}>{ingredient}</li>
+                    <li key={index} style={{ fontSize: '16px' }}>
+                      {ingredient}
+                      <Button
+                        style={{ marginLeft: '10px' }}
+                        variant="primary"
+                        onClick={() => handleAddToGroceryList(ingredient)}
+                      >
+                        Add to Grocery List
+                      </Button>
+                    </li>
                   ))}
                 </ul>
                 <h3 className="mb-3">Instructions:</h3>
@@ -45,9 +60,17 @@ const RecipeDetail = ( {recipes} ) => {
           </Row>
           <Row>
             <Link to={`/`}>
-              <Button 
-                style={{ padding: '6px 10px', fontSize: '1.0rem', marginBottom: '10px', backgroundColor: 'white', color: 'black' }}
-                variant="primary" index={recipe.id}>
+              <Button
+                style={{
+                  padding: '6px 10px',
+                  fontSize: '1.0rem',
+                  marginBottom: '10px',
+                  backgroundColor: 'white',
+                  color: 'black',
+                }}
+                variant="primary"
+                index={recipe.id}
+              >
                 Back To Home
               </Button>
             </Link>
@@ -55,8 +78,7 @@ const RecipeDetail = ( {recipes} ) => {
         </Col>
       </Row>
     </Container>
-  )
-	
+  );
 };
 
 export default RecipeDetail;

@@ -9,7 +9,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
-
+import Offcanvas from 'react-bootstrap/Offcanvas'; // Add this line
 const App = () => {
   const [groceryList, setGroceryList] = useState([]);
 
@@ -24,6 +24,11 @@ const App = () => {
   const handleClearGroceryList = () => {
     setGroceryList([]);
   };
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const recipes = [
     {
@@ -114,18 +119,30 @@ const App = () => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        <div className="grocery-list">
-          <h2>Grocery List</h2>
-          <ul>
-            {groceryList.map((item, index) => (
-              <li key={index}>
-                {item}
-                <Button onClick={() => handleRemoveFromGroceryList(item)}>Remove</Button>
-              </li>
-            ))}
-          </ul>
-          <Button onClick={handleClearGroceryList}>Clear List</Button>
-        </div>
+      <Button variant="primary" onClick={handleShow}>
+        Grocery List
+      </Button>
+
+      <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <div className="grocery-list">
+            <h2>Grocery List</h2>
+            <ul>
+              {groceryList.map((item, index) => (
+                <li key={index}>
+                  {item}
+                  <Button onClick={() => handleRemoveFromGroceryList(item)}>Remove</Button>
+                </li>
+              ))}
+            </ul>
+            <Button onClick={handleClearGroceryList}>Clear List</Button>
+          </div>
+        </Offcanvas.Body>
+      </Offcanvas>
+
         <Routes>
           <Route
             path="/"

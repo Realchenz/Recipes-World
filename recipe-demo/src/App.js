@@ -125,11 +125,10 @@ const App = () => {
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+          <Offcanvas.Title>Grocery List</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div className="grocery-list">
-            <h2>Grocery List</h2>
             <ul>
               {groceryList.map((item, index) => (
                 <li key={index}>

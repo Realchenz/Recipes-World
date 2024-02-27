@@ -22,7 +22,7 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
-        <Col xs={10} lg={8}>
+        <Col xs={10} lg={10}>
           <h1 className="text-center mb-4">{recipe.title}</h1>
           <Row className="mb-4">
             <Col xs={12} md={6} order={1}>
@@ -34,15 +34,23 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
                 <ul className="list-unstyled">
                   {recipe.ingredients.map((ingredient, index) => (
                     <li key={index} style={{ fontSize: '16px' }}>
-                      {ingredient}
-                      <Button
-                        onClick={() => handleAddToGroceryList(ingredient)}
-                        style={{ padding: '2px 6px', fontSize: '0.8rem',
-                                 marginBottom: '10px', backgroundColor: 'white', 
-                                 color: 'black' }}
-                        variant="primary">
-                        Add to Grocery List
-                      </Button>
+                      <Container>
+                        <Row>
+                          <Col md={6}>
+                            {ingredient}
+                          </Col>
+                          <Col md={6}>
+                            <Button
+                              onClick={() => handleAddToGroceryList(ingredient)}
+                              style={{ padding: '2px 10px', fontSize: '0.8rem',
+                                      marginBottom: '10px', backgroundColor: 'white', 
+                                      color: 'black' }}
+                              variant="primary">
+                              Add to Grocery List
+                            </Button>
+                          </Col>
+                        </Row>
+                      </Container>
                     </li>
                   ))}
                 </ul>

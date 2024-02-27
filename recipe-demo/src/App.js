@@ -30,8 +30,7 @@ const App = () => {
     setGroceryList((prevList) => {
       localStorage.setItem('groceryData', JSON.stringify([...prevList,ingredient]))
       return [...prevList, ingredient]
-    }
-    );
+    });
   };
 
   const handleRemoveFromGroceryList = (ingredient) => {

@@ -38,6 +38,7 @@ const App = () => {
   };
 
   const handleClearGroceryList = () => {
+    localStorage.clear();
     setGroceryList([]);
   };
 

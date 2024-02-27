@@ -38,6 +38,9 @@ const App = () => {
     setGroceryList((prevList) => {
       prevList = prevList.filter((item) => item !== ingredient)
       localStorage.setItem('groceryData', JSON.stringify(prevList))
+      if(prevList.length === 0){
+        localStorage.removeItem('groceryData');
+      }
       return prevList
     });
   };

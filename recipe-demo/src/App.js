@@ -34,11 +34,14 @@ const App = () => {
   };
 
   const handleRemoveFromGroceryList = (ingredient) => {
-    setGroceryList((prevList) => prevList.filter((item) => item !== ingredient));
+    setGroceryList((prevList) => {
+      localStorage.setItem('groceryData', JSON.stringify(prevList.filter((item) => item !== ingredient)))
+      return prevList.filter((item) => item !== ingredient)
+    });
   };
 
   const handleClearGroceryList = () => {
-    localStorage.clear();
+    localStorage.removeItem('groceryData');
     setGroceryList([]);
   };
 

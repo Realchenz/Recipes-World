@@ -5,11 +5,14 @@ import RecipeDetail from "./components/RecipeDetail/RecipeDetail";
 import TeamPage from "./components/TeamPage/TeamPage";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas'; // Add this line
+
 const App = () => {
   const [groceryList, setGroceryList] = useState([]);
 
@@ -132,8 +135,16 @@ const App = () => {
             <ul>
               {groceryList.map((item, index) => (
                 <li key={index}>
-                  {item}
-                  <Button onClick={() => handleRemoveFromGroceryList(item)}>Remove</Button>
+                  <Container>
+                    <Row>
+                      <Col xs={12} md={6} order={1}>
+                        {item}
+                      </Col>
+                      <Col xs={4} md={6} order={2}>
+                        <Button onClick={() => handleRemoveFromGroceryList(item)}>Remove</Button>
+                      </Col>                      
+                    </Row>
+                  </Container>
                 </li>
               ))}
             </ul>

@@ -5,16 +5,20 @@ import RecipeDetail from "./components/RecipeDetail/RecipeDetail";
 import TeamPage from "./components/TeamPage/TeamPage";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas'; // Add this line
+
 const App = () => {
   const [groceryList, setGroceryList] = useState([]);
 
   const handleAddToGroceryList = (ingredient) => {
     setGroceryList((prevList) => [...prevList, ingredient]);
+    handleShow();
   };
 
   const handleRemoveFromGroceryList = (ingredient) => {
@@ -91,7 +95,7 @@ const App = () => {
       title: "Kung Pao Chicken",
       id: 8,
       description: "A classic Chinese takeout dish of stir-fried chicken, peanuts, and vegetables, is easy to make at home.",
-      ingredients: ["2 tablespoons cornstarch", "2 tablespoons white wine", "2 tablespoons soy sauce", "2 tablespoons sesame oil", "1 pound skinless, boneless chicken breast halves", "1 ounce hot chili paste", "2 teaspoons brown sugar", "1 teaspoon distilled white vinegar", "1 (8 ounce) can water chestnuts", "4 ounces chopped peanuts", "4 green onions, chopped", "1 tablespoon chopped garlic"],
+      ingredients: ["Cornstarch", "White Wine", "Soy Sauce", "Sesame Oil", "Chicken Breast Halves", "Hot Chili Paste", "Brown Sugar", "Distilled White Vinegar", "Can Water Chestnuts", "Chopped Peanuts", "Chopped Onions", "Chopped Garlic"],
       instructions: "Combine water and cornstarch in a cup; set aside. Combine 1 tablespoon wine, 1 tablespoon soy sauce, 1 tablespoon sesame oil, and 1 tablespoon cornstarch/water mixture in a large glass bowl. Add chicken pieces and toss to coat. Cover the dish and refrigerate for about 30 minutes.",
       image: "https://www.onceuponachef.com/images/2018/05/Kung-Pao-Chicken-16-1660x2048.jpg"
     }
@@ -115,26 +119,38 @@ const App = () => {
                     <NavDropdown.Item href={"/recipes/" + recipe.id}>{recipe.title}</NavDropdown.Item>
                   ))}
                 </NavDropdown>
+                <Nav.Link onClick={handleShow}>Grocery List</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
         </Navbar>
-      <Button variant="primary" onClick={handleShow}>
-        Grocery List
-      </Button>
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+          <Offcanvas.Title>Grocery List</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div className="grocery-list">
-            <h2>Grocery List</h2>
             <ul>
               {groceryList.map((item, index) => (
                 <li key={index}>
-                  {item}
-                  <Button onClick={() => handleRemoveFromGroceryList(item)}>Remove</Button>
+                  <Container>
+                    <Row>
+                      <Col md={8} order={1}>
+                        {item}
+                      </Col>
+                      <Col md={3} order={2}>
+                        <Button
+                          onClick={() => handleRemoveFromGroceryList(item)}
+                          style={{ padding: '2px 6px', fontSize: '0.8rem',
+                                   marginBottom: '10px', backgroundColor: 'white',
+                                   color: 'black' }}
+                          variant="primary">
+                          Remove
+                        </Button>
+                      </Col>                      
+                    </Row>
+                  </Container>
                 </li>
               ))}
             </ul>

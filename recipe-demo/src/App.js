@@ -18,6 +18,7 @@ const App = () => {
 
   const handleAddToGroceryList = (ingredient) => {
     setGroceryList((prevList) => [...prevList, ingredient]);
+    handleShow();
   };
 
   const handleRemoveFromGroceryList = (ingredient) => {

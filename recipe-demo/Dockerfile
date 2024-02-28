@@ -1,10 +1,11 @@
-FROM ubuntu:latest
-LABEL "Project"="Recipe Book"
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update
-RUN apt install apache2 -y
-WORKDIR /var/www/html/
-COPY build/ /var/www/html/
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
-VOLUME /var/log/apache2
-EXPOSE 80
+FROM node:18
+
+WORKDIR /workspaces/cosi-103a/recipe-demo
+
+COPY . .
+
+RUN npm install
+
+EXPOSE 3000
+
+CMD ["npm", "start"]

@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useParams, Link } from 'react-router-dom';
+import Carousel from 'react-bootstrap/Carousel';
 
 
 const RecipeDetail = ({ recipes, addToGroceryList }) => {
   const { id } = useParams();
   const recipe = recipes.find((recipe) => recipe.id === parseInt(id));
 
+  const [showInstructions, setShowInstructions] = useState(false);
+
+  const handleShowInstructions = () => {
+    setShowInstructions(!showInstructions);
+  };
+
   if (!recipe) {
-    // Handle case where recipe is not found
     return <div>Recipe not found</div>;
   }
 
@@ -54,8 +60,38 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
                     </li>
                   ))}
                 </ul>
-                <h3 className="mb-3">Instructions:</h3>
-                <p style={{ fontSize: '16px' }}>{recipe.instructions}</p>
+                <Container className="mt-5">
+                  <Row>
+                    <Button
+                      onClick={handleShowInstructions}
+                      style={{
+                        padding: '6px 10px',
+                        fontSize: '1.0rem',
+                        marginBottom: '10px',
+                        backgroundColor: 'white',
+                        color: 'black',
+                      }}
+                      variant="primary"
+                      index={recipe.id}
+                    >
+                      Show Instructions
+                    </Button>
+                  </Row>
+                  {showInstructions && (
+                    <Carousel fade>
+                      <Carousel.Item>
+                      <img
+                        className="d-block w-100"
+                        src="image1.jpg"
+                        alt="First slide"
+                      />
+                        <Carousel.Caption>
+                          <h3>{recipe.instructions}</h3>
+                        </Carousel.Caption>
+                      </Carousel.Item>
+                    </Carousel>
+                  )}
+                </Container>
               </div>
             </Col>
             <Col xs={12} md={6} order={2}>

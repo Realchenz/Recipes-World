@@ -56,22 +56,22 @@ const CarouselSlider = ({ setSlideCount, setCurrentSlide, recipe}) => {
     <Wrapper>
       <Slider>
         <Slide index={0} className="slide">
-          <Card index={0} />
+          <Card index={1} recipe={recipe}/>
         </Slide>
         <Slide index={1}>
-          <Card />
+          <Card index={2} recipe={recipe}/>
         </Slide>
         <Slide index={2}>
-          <Card />
+          <Card index={3} recipe={recipe}/>
         </Slide>
         <Slide index={3}>
-          <Card />
+          <Card index={4} recipe={recipe}/>
         </Slide>
         <Slide index={4}>
-          <Card />
+          <Card index={5} recipe={recipe}/>
         </Slide>
         <Slide index={5}>
-          <Card />
+          <Card index={6} recipe={recipe}/>
         </Slide>
       </Slider>
       <div className="controls">

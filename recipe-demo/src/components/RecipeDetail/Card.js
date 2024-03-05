@@ -1,26 +1,27 @@
 import styled from "styled-components";
 
-const Card = () => {
+const Card = ({recipe, index}) => {
   return (
     <CardWrapper>
       <div className="image-container">
-        <img src="/lemon.png" alt="lemon" />
+        <img src={recipe.image} alt="lemon" />
       </div>
 
       <div className="content">
         <div className="heading">
           <h2 className="heading__title">
-            Content <span className="next-line">cards title</span>
+            <span className="next-line">{recipe.title}</span>
           </h2>
-          <h3 className="heading__subtitle">Card subtitle</h3>
+            <h3 className="step">
+                <span className="next-line">Step {index}</span>
+            </h3>
         </div>
 
         <div className="details">
           <p className="details__text">
-            Lorem ipsum dolor sit amet, consect etur adipi scing elit
+            {recipe.instructions}
             <span className="next-line">sed do eiusmod tempor</span>
           </p>
-          <button className="details__btn">Tertiary Button</button>
         </div>
       </div>
     </CardWrapper>

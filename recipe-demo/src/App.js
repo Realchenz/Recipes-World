@@ -11,7 +11,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas'; // Add this line
+import Offcanvas from 'react-bootstrap/Offcanvas'; 
 
 const App = () => {
   const getLocalStorage = () => {
@@ -183,7 +183,7 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<RecipeList recipes={recipes} addToGroceryList={handleAddToGroceryList} />}
+            element={<RecipeList recipes={recipes} />}
           />
           <Route
             path="/recipes/:id"

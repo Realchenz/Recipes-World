@@ -55,24 +55,11 @@ const CarouselSlider = ({ setSlideCount, setCurrentSlide, recipe}) => {
   return (
     <Wrapper>
       <Slider>
-        <Slide index={0} className="slide">
-          <Card index={1} recipe={recipe}/>
+      {recipe.instructions.map((instruction, index) => (
+        <Slide key={index} index={index} className="slide">
+          <Card index={index + 1} recipe={recipe} instruction={instruction} />
         </Slide>
-        <Slide index={1}>
-          <Card index={2} recipe={recipe}/>
-        </Slide>
-        <Slide index={2}>
-          <Card index={3} recipe={recipe}/>
-        </Slide>
-        <Slide index={3}>
-          <Card index={4} recipe={recipe}/>
-        </Slide>
-        <Slide index={4}>
-          <Card index={5} recipe={recipe}/>
-        </Slide>
-        <Slide index={5}>
-          <Card index={6} recipe={recipe}/>
-        </Slide>
+      ))}
       </Slider>
       <div className="controls">
         <ButtonBack className="btn-arrow reverse-arrow">

@@ -124,7 +124,7 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
         <CarouselWrapper className="carousel-container" onClick={handleCarouselClick}>
         <CarouselProvider
           visibleSlides={slideCount}
-          totalSlides={6}
+          totalSlides={recipe.instructions.length}
           step={1}
           currentSlide={currentSlide}
           naturalSlideWidth={100}

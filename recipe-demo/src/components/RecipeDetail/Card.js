@@ -19,7 +19,7 @@ const Card = ({recipe, index}) => {
 
         <div className="details">
           <p className="details__text">
-            {recipe.instructions}
+            {recipe.instructions[index - 1]}
             <span className="next-line">sed do eiusmod tempor</span>
           </p>
         </div>

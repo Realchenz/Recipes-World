@@ -24,7 +24,7 @@ const App = () => {
     }
   }
 
-  const [recipes, setRecipes] = useState('');
+  const [recipes, setRecipes] = useState([]);
 
   const [groceryList, setGroceryList] = useState(getLocalStorage);
 
@@ -61,6 +61,7 @@ const App = () => {
   useEffect(() => {
     axios.get('http://localhost:8000/api/recipes').then(response => {
       setRecipes(response.data);
+      // console.log(recipes);
     }).catch(error => {
       console.error('Error: ', error);
     });
@@ -133,8 +134,6 @@ const App = () => {
   //     image: "https://www.onceuponachef.com/images/2018/05/Kung-Pao-Chicken-16-1660x2048.jpg"
   //   }
   // ];
-
-
 
   return (
     <Router>

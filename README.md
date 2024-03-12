@@ -23,6 +23,12 @@ The team page shows all the developers of this web application.
 
 The routes are set up in the App.js file. Each recipe detail (total 8) has its own route using dynamic segment. The landing page route directs to the RecipeList component.
 
+We also added a Carousel mode in front-end to display the instructions. This mode makes the display of instructions user-friendly in mobile web browser. 
+
+The back-end is developed using Express.js. The entry point of back-end is app.js file, and the PORT is 8000. The recipes is stored in /api/recipes. We used the REST APIs including GET, POST to let user to send recipe JSON file from front-end to back-end and push the changes to /api/recipes. Also, the front-end uses GET to get the recipes data from back-end. 
+
+To add a recipe JSON file, click the "Add Your Recipes" link in the Nav bar. 
+
 Instructions:
 1. git clone git@github.com:Ailuruscp/cosi-103a.git
 2. cd recipe-demo

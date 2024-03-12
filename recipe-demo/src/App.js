@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import RecipeList from './components/RecipeList';
+import RecipeList from './components/RecipeList/RecipeList';
 import RecipeDetail from "./components/RecipeDetail/RecipeDetail";
 import TeamPage from "./components/TeamPage/TeamPage";
+import AddRecipe from "./components/AddRecipe/AddRecipe";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -61,6 +62,9 @@ const App = () => {
   useEffect(() => {
     axios.get('http://localhost:8000/api/recipes').then(response => {
       setRecipes(response.data);
+
+      const recipeData = response.data;
+      console.log(JSON.stringify(recipeData[1]));
       // console.log(recipes);
     }).catch(error => {
       console.error('Error: ', error);
@@ -79,13 +83,14 @@ const App = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="/team">Team Page</Nav.Link>
                 <NavDropdown title="Recipes Links" id="basic-nav-dropdown">
                   {recipes.map((recipe) => (
                     <NavDropdown.Item href={"/recipes/" + recipe.id}>{recipe.title}</NavDropdown.Item>
                   ))}
                 </NavDropdown>
                 <Nav.Link onClick={handleShow}>Grocery List</Nav.Link>
+                <Nav.Link href="/addrecipes">Add Your Recipes</Nav.Link>
+                <Nav.Link href="/team">Team Page</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -135,6 +140,7 @@ const App = () => {
             element={<RecipeDetail recipes={recipes} addToGroceryList={handleAddToGroceryList} />}
           />
           <Route path="/team" element={<TeamPage />} />
+          <Route path="/addrecipes" element={<AddRecipe recipes={recipes}/>} />
         </Routes>
       </div>
     </Router>

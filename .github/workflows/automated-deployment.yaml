@@ -22,5 +22,5 @@ jobs:
         with:
           appSourcePath: ${{ github.workspace }}/recipe-demo
           acrName: reactrecipeapp
-          containerAppName: my-recipewebsite-app
+          containerAppName: react-app-recipe
           resourceGroup: RecipeWebsite

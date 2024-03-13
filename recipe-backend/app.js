@@ -97,11 +97,17 @@ app.get('/api/recipes', (req, res) => {
 });
 
 app.post('/api/recipes',  (req, res) => {
-  const newRecipe = req.body;
+  const body = req.body;
 
-  console.log(newRecipe);
+  const newRecipe = {
+    id: recipes.length + 1,
+    title: body.title,
+    description: body.description,
+    ingredients: body.ingredients,
+    instructions: body.instructions,
+    image: body.image
+  };
   
-  newRecipe.id = recipes.length + 1;
   recipes.push(newRecipe);
 
   res.status(201).json(newRecipe);

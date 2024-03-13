@@ -3,13 +3,27 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
 
-const PORT = 3000
+const PORT = 8000;
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use(cors());
 
 const recipes = [
   {
@@ -78,18 +92,30 @@ const recipes = [
   }
 ];
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.get('/api/recipes', (req, res) => {
+  res.json(recipes);
+});
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.post('/api/recipes',  (req, res) => {
+  const body = req.body;
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+  const newRecipe = {
+    id: recipes.length + 1,
+    title: body.title,
+    description: body.description,
+    ingredients: body.ingredients,
+    instructions: body.instructions,
+    image: body.image
+  };
+  
+  recipes.push(newRecipe);
+
+  res.status(201).json(newRecipe);
+});
+
+app.listen(PORT, () => {
+  console.log('Server is running');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

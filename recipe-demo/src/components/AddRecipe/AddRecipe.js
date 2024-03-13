@@ -12,13 +12,17 @@ const AddRecipe = ( {recipes} ) => {
   const validateAndSubmit = () => {
     try {
       // Attempt to parse the JSON to check its validity
-      JSON.parse(recipe);
+      const parsedRecipe = JSON.parse(recipe);
       setIsValidJson(true);
       // Here, you can handle the valid JSON as needed, e.g., send it to an API
       console.log('Valid JSON:', recipe);
       alert('Recipe submitted successfully!');
       
-      axios.post('http://localhost:8000/api/recipes', recipe).then(response => {
+      axios.post('http://localhost:8000/api/recipes', parsedRecipe, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(response => {
         console.log('Recipe added: ', response.data);
       }).catch(error => {
         console.log('Error adding recipe: ', error.response.data);

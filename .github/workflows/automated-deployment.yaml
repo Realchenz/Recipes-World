@@ -21,6 +21,6 @@ jobs:
         uses: azure/container-apps-deploy-action@v1
         with:
           appSourcePath: ${{ github.workspace }}/src
-          acrName: recipe-react-yifei
+          acrName: reactrecipeapp
           containerAppName: my-recipewebsite-app
           resourceGroup: RecipeWebsite

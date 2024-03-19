@@ -18,7 +18,6 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
   const recipe = recipes.find((recipe) => recipe.id === parseInt(id));
 
   const searchUrl = 'https://api.nal.usda.gov/fdc/v1/foods/search';
-  const dataUrl = 'https://api.nal.usda.gov/fdc/v1/food/';
   const api_key = 'iHroxU038Ckld8zTXak3By9Wbbmr5VtOiXnckbMu';
   const [ingredientsData, setIngredientsData] = useState([]);
 
@@ -87,7 +86,7 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
                       <Container>
                         <Row>
                           <Col md={6}>
-                          <a href={`${dataUrl}${ingredientsData[index]}?api_key=${api_key}`}>{ingredient}</a>
+                          <a href={`https://fdc.nal.usda.gov/fdc-app.html#/food-details/${ingredientsData[index]}/nutrients`}>{ingredient}</a>
                           </Col>
                           <Col md={6}>
                             <Button

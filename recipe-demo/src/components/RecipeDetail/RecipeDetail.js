@@ -15,7 +15,16 @@ import axios from 'axios';
 
 const RecipeDetail = ({ recipes, addToGroceryList }) => {
   const { id } = useParams();
-  const recipe = recipes.find((recipe) => recipe.id === parseInt(id));
+  let recipe = recipes.find((recipe) => recipe.id === parseInt(id));
+
+  if(recipe){
+    localStorage.setItem('lastRecipe', JSON.stringify(recipe));
+  }else{
+    const recipeData = localStorage.getItem('lastRecipe');
+    if (recipeData) {
+      recipe = JSON.parse(recipeData)
+    }
+  }
 
   const searchUrl = 'https://api.nal.usda.gov/fdc/v1/foods/search';
   const api_key = 'iHroxU038Ckld8zTXak3By9Wbbmr5VtOiXnckbMu';

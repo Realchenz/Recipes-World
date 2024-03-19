@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -9,12 +9,18 @@ import CarouselSlider from './CarouselSlider';
 import { CarouselProvider } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import styled from "styled-components";
+import axios from 'axios';
 
 
 
 const RecipeDetail = ({ recipes, addToGroceryList }) => {
   const { id } = useParams();
   const recipe = recipes.find((recipe) => recipe.id === parseInt(id));
+
+  const searchUrl = 'https://api.nal.usda.gov/fdc/v1/foods/search';
+  const dataUrl = 'https://api.nal.usda.gov/fdc/v1/food/';
+  const api_key = 'iHroxU038Ckld8zTXak3By9Wbbmr5VtOiXnckbMu';
+  const [ingredientsData, setIngredientsData] = useState([]);
 
   const [showInstructions, setShowInstructions] = useState(false);
 
@@ -33,6 +39,27 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
     setShowInstructions(!showInstructions);
   };
 
+  useEffect(() => {
+    const fetchIngredientsData = async () => {
+      try {
+        const fetchedIngredients = recipe.ingredients; 
+        const fetchedData = await Promise.all(
+        fetchedIngredients.map(async (ingredient) => {
+          const response = await axios.get(`${searchUrl}?query=${ingredient}&api_key=${api_key}`);
+            console.log(response.data.foods[0]);
+            return response.data.foods[0];
+          })
+        );
+        const fdcIdsArray = fetchedData.map(data => data.fdcId);
+        setIngredientsData(fdcIdsArray);
+      } catch (error) {
+        console.error('Error fetching ingredients data:', error);
+      }
+    };
+
+    fetchIngredientsData();
+  }, [recipe.ingredients, ingredientsData]);
+
   if (!recipe) {
     return <div>Recipe not found</div>;
   }
@@ -40,6 +67,7 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
   const handleAddToGroceryList = (ingredient) => {
     addToGroceryList(ingredient);
   };
+
 
   return (
     <Container className="mt-5">
@@ -59,7 +87,7 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
                       <Container>
                         <Row>
                           <Col md={6}>
-                            {ingredient}
+                          <a href={`${dataUrl}${ingredientsData[index]}?api_key=${api_key}`}>{ingredient}</a>
                           </Col>
                           <Col md={6}>
                             <Button

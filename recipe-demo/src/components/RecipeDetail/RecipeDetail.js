@@ -12,7 +12,6 @@ import styled from "styled-components";
 import axios from 'axios';
 
 // Load dotenv API Key
-require('dotenv').config;
 console.log(process.env);
 
 

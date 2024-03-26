@@ -39,6 +39,11 @@ The routes are set up in the App.js file. Each recipe detail (total 8) has its o
 
 Besides, our app is also connected with the USDA FoodData Central API. When user clicks an ingredient, the app will use the USDA FoodData Central API to search the ingredient name. Then, the app will open an ingredient details page in the USDA website (if the ingredient is available). When users click the 'Go Back' button in the web browser, it will navigate them back to the web application (We achieve this by using local storage). 
 
+Moreover, three alerts for three different error conditions that seem likely and problematic for the website application are setup in the Azure cloud:
+1. CPU Usage: Condition: UsageNanoCores > 0.1, Severity: Warning.
+2. Network In: Condition: RxBytes > 200000 B, Severity: Warning.
+3. Network Out: Condition: TxBytes > 1000000 B, Severity: Warning.
+
 Instructions:
 1. git clone git@github.com:Ailuruscp/cosi-103a.git
 2. cd recipe-demo

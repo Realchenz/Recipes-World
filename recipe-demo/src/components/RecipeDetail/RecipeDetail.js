@@ -11,6 +11,8 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import styled from "styled-components";
 import axios from 'axios';
 
+// Load dotenv API Key
+console.log(process.env);
 
 
 const RecipeDetail = ({ recipes, addToGroceryList }) => {
@@ -27,7 +29,7 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
   }
 
   const searchUrl = 'https://api.nal.usda.gov/fdc/v1/foods/search';
-  const api_key = 'iHroxU038Ckld8zTXak3By9Wbbmr5VtOiXnckbMu';
+  const api_key = process.env.API_KEY;
   const [ingredientsData, setIngredientsData] = useState([]);
 
   const [showInstructions, setShowInstructions] = useState(false);

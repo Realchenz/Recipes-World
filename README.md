@@ -37,7 +37,7 @@ To add a recipe JSON file, click the "Add Your Recipes" link in the Nav bar.
 
 The routes are set up in the App.js file. Each recipe detail (total 8) has its own route using dynamic segment. The landing page route directs to the RecipeList component.
 
-Besides, our app is also connected with the USDA FoodData Central API. When user clicks an ingredient, the app will use the USDA FoodData Central API to search the ingredient name. Then, the app will open an ingredient details page in the USDA website (if the ingredient is available). When users click the 'Go Back' button in the web browser, it will navigate them back to the web application (We achieve this by using local storage). 
+Besides, our app is also connected with the USDA FoodData Central API. (API Key is hidden to the public in a file: .env) When user clicks an ingredient, the app will use the USDA FoodData Central API to search the ingredient name. Then, the app will open an ingredient details page in the USDA website (if the ingredient is available). When users click the 'Go Back' button in the web browser, it will navigate them back to the web application (We achieve this by using local storage). 
 
 Moreover, three alerts for three different error conditions that seem likely and problematic for the website application are setup in the Azure cloud:
 1. CPU Usage: Condition: UsageNanoCores > 0.1, Severity: Warning.

@@ -94,7 +94,7 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
                       <Container>
                         <Row>
                           <Col md={6}>
-                          <a href={`https://fdc.nal.usda.gov/fdc-app.html#/food-details/${ingredientsData[index]}/nutrients`}>{ingredient}</a>
+                          <a href={`https://fdc.nal.usda.gov/fdc-app.html#/food-details/${ingredientsData[index]}/nutrients`} target="_blank" rel="noopener noreferrer">{ingredient}</a>
                           </Col>
                           <Col md={6}>
                             <Button

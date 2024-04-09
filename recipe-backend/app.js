@@ -55,6 +55,14 @@ app.post('/api/recipes',  (req, res) => {
   
   recipes.push(newRecipe);
 
+  const newRecipeMongo = new Recipe(newRecipe);
+  newRecipeMongo.save().then(() => {
+      console.log('New recipe added successfully');
+    })
+    .catch(err => {
+      console.error('Error saving recipe:', err);
+    });
+
   res.status(201).json(newRecipe);
 });
 

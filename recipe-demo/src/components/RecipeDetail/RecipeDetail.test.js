@@ -1,10 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'; 
-import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom';
-
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import RecipeDetail from './RecipeDetail';
-
 describe('RecipeDetail Component', () => {
   const recipes = [
     {
@@ -45,5 +43,5 @@ describe('RecipeDetail Component', () => {
 
     const recipeInstructions = screen.getByText(recipe.instructions);
     expect(recipeInstructions).toBeInTheDocument();
-  });
+  })
 });

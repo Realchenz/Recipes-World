@@ -17,10 +17,40 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           
-      - name: Build and deploy Container App
-        uses: azure/container-apps-deploy-action@v1
-        with:
-          appSourcePath: ${{ github.workspace }}/recipe-demo
-          acrName: reactrecipeapp
-          containerAppName: react-app-recipe
-          resourceGroup: RecipeWebsite
+      # - name: Build and deploy Container App
+      #   uses: azure/container-apps-deploy-action@v1
+      #   with:
+      #     appSourcePath: ${{ github.workspace }}/recipe-demo
+      #     acrName: reactrecipeapp
+      #     containerAppName: react-app-recipe
+      #     resourceGroup: RecipeWebsite
+      - name: Deploy to Azure Container App
+        run: |
+          export APP_NAME=reactrecipeapp
+          export RESOURCE_GROUP=RecipeWebsite
+          export BLUE_COMMIT_ID=fb699ef
+          export GREEN_COMMIT_ID=c6f1515
+
+          az containerapp create --name $APP_NAME --environment $APP_ENVIRONMENT_NAME --resource-group $RESOURCE_GROUP --image mcr.microsoft.com/k8se/samples/test-app:$BLUE_COMMIT_ID --revision-suffix $BLUE_COMMIT_ID --env-vars REVISION_COMMIT_ID=$BLUE_COMMIT_ID --ingress external --target-port 80 --revisions-mode multiple
+
+          az containerapp ingress traffic set --name $APP_NAME --resource-group $RESOURCE_GROUP --revision-weight $APP_NAME--$BLUE_COMMIT_ID=100
+
+          az containerapp revision label add --name $APP_NAME --resource-group $RESOURCE_GROUP --label blue --revision $APP_NAME--$BLUE_COMMIT_ID
+
+      - name: Run smoke tests
+        run: |
+          NEW_REVISION_URL="http://<new-revision-specific-url>"
+          echo "Running smoke tests against $NEW_REVISION_URL"
+          # Example smoke test: Check if the application renders pages correctly
+          curl -s --fail $NEW_REVISION_URL/health
+          curl -s --fail $NEW_REVISION_URL/api/data
+    
+      - name: Update traffic routing
+        if: success()  # This step runs only if the smoke tests pass
+        run: |
+          az containerapp update --name reactrecipeapp --resource-group RecipeWebsite --set traffic=reactrecipeapp@100
+  
+      - name: Handle failed deployment
+        if: failure()  # This step runs only if the smoke tests fail
+        run: |
+          echo "Smoke tests failed. Deployment will not proceed. No traffic change." 

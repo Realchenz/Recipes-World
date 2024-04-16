@@ -11,6 +11,7 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import styled from "styled-components";
 import axios from 'axios';
 
+
 const RecipeDetail = ({ recipes, addToGroceryList }) => {
   const { id } = useParams();
   let recipe = recipes.find((recipe) => recipe.id === parseInt(id));
@@ -241,5 +242,4 @@ const ModalWrapper = styled.div`
 `;
 
 export default RecipeDetail;
-
 

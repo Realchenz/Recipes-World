@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'; 
 import { BrowserRouter as Router } from 'react-router-dom';
-
 import RecipeList from './RecipeList';
 
 describe('RecipeList Component', () => {
@@ -64,7 +63,6 @@ describe('RecipeList Component', () => {
       image: "https://www.allrecipes.com/thmb/ICeU6n3kGzoTxOV4ONB0q_TpgYk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/125434-GrilledCheeseoftheGods-mfs-3x2-067-267097af4d0b446ab646bba044445147.jpg"
     },
   ];
-
   it('renders the correct number of cards', () => {
     render(
       <Router>
@@ -82,29 +80,32 @@ describe('RecipeList Component', () => {
         <RecipeList recipes={recipes} />
       </Router>
     );
-
-    recipes.forEach((recipe) => {
-      const title = screen.getByText(recipe.title);
-      const image = screen.getByAltText(recipe.title);
-
+  
+    const titles = screen.getAllByText((content, element) => recipes.some(recipe => recipe.title === content));
+    const images = screen.getAllByAltText((altText, element) => recipes.some(recipe => recipe.title === altText));
+  
+    titles.forEach((title, index) => {
       expect(title).toBeInTheDocument();
-      expect(image).toBeInTheDocument();
+    });
+  
+    images.forEach((image, index) => {
+      expect(image).toHaveAttribute('src', recipes[index].image);
     });
   });
-
-  it('renders "Details" button with correct link', () => {
+  
+  it('renders "Details" button with correct link for each recipe', () => {
     render(
       <Router>
         <RecipeList recipes={recipes} />
       </Router>
     );
-
-    recipes.forEach((recipe) => {
-      const buttons = screen.getAllByText('Details');
-      expect(buttons.length).toBe(recipes.length); 
-      buttons.forEach((button) => {
-        expect(button).toBeInTheDocument();
-      });
+  
+    const buttons = screen.getAllByText('Details');
+    expect(buttons.length).toBe(recipes.length); 
+  
+    buttons.forEach((button, index) => {
+      expect(button).toBeInTheDocument();
+      expect(button.closest('a')).toHaveAttribute('href', `/recipes/${recipes[index].id}`);
     });
   });
 });

@@ -1,27 +1,35 @@
 // HamburgerMenu.js
-import {React} from 'react';
-import { Navbar, NavDropdown, Nav, Container } from 'react-bootstrap';
+import React from 'react';
+import { slide as Menu } from 'react-burger-menu';
+import './HamburgerMenu.css';
 
 const HamburgerMenu = ({ recipes, handleShow }) => {
-    return (
-        <Navbar expand="lg" bg="light">
-        <Container>
-            <NavDropdown title="Recipes Lists" id="basic-nav-dropdown">
-            {recipes.map((recipe) => (
-                <NavDropdown.Item key={recipe.id} href={"/recipes/" + recipe.id}>{recipe.title}</NavDropdown.Item>
-            ))}
-            </NavDropdown>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-                <Nav.Link onClick={handleShow}>Grocery List</Nav.Link>
-                <Nav.Link href="/addrecipes">Add Your Recipes</Nav.Link>
-                <Nav.Link href="/team">Team Page</Nav.Link>
-            </Nav>
-            </Navbar.Collapse>
-        </Container>
-        </Navbar>
-    );
+  return (
+    <Menu>
+      <a className="menu-item" href="/">
+        Home
+      </a>
+      <div className="menu-item">
+        Recipes Lists
+        <div className="sub-menu">
+          {recipes.map((recipe) => (
+            <a key={recipe.id} className="menu-item" href={"/recipes/" + recipe.id}>
+              {recipe.title}
+            </a>
+          ))}
+        </div>
+      </div>
+      <a className="menu-item" onClick={handleShow} href="#">
+        Grocery List
+      </a>
+      <a className="menu-item" href="/addrecipes">
+        Add Your Recipes
+      </a>
+      <a className="menu-item" href="/team">
+        Team Page
+      </a>
+    </Menu>
+  );
 };
 
 export default HamburgerMenu;

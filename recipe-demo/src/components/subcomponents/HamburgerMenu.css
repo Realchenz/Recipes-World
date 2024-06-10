@@ -1,0 +1,43 @@
+/* HamburgerMenu.css */
+.bm-burger-button {
+    position: fixed;
+    width: 36px;
+    height: 30px;
+    right: 36px;
+    top: 36px;
+  }
+  
+  .bm-burger-bars {
+    background: #373a47;
+  }
+  
+  .bm-menu {
+    background: #f2f0ec;
+    padding: 2.5em 1.5em 0;
+    font-size: 1.15em;
+  }
+  
+  .bm-item-list {
+    color: #b8b7ad;
+  }
+  
+  .bm-item {
+    display: block;
+    text-decoration: none;
+    margin-bottom: 10px;
+    color: #150303;
+    transition: color 0.2s;
+  }
+  
+  .bm-item:hover {
+    color: white;
+  }
+  
+  .bm-overlay {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  .sub-menu {
+    padding-left: 15px;
+  }
+  

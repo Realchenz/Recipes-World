@@ -53,6 +53,7 @@ const App = () => {
     setGroceryList([]);
   };
 
+  // Offcanvas state
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -78,9 +79,8 @@ const App = () => {
           </Navbar.Brand>
           <div style={{ margin: '10px' }}></div>
           <span className="text-muted" style={{ fontSize: '20px' }}>Give you an amazing experience</span>
+          <HamburgerMenu recipes={recipes} handleShow={handleShow} />
         </header>
-        
-        <HamburgerMenu recipes={recipes} handleShow={handleShow} />
 
         <GroceryListOffcanvas
           show={show}

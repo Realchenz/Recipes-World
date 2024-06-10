@@ -2,18 +2,37 @@
   text-align: center;
   font-family: 'Arial', sans-serif;
   color: #333;
-  padding: 20px;
+  padding: 0px;
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #ebbd34;
   min-height: 60px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(20px + 2vmin);
   color: white;
+  font-family: 'Gwendolyn', cursive;
+}
+
+.custom-nav-dropdown .dropdown-toggle::after {
+  display: none; /* Hide the default arrow */
+}
+
+.custom-nav-dropdown .dropdown-toggle {
+  position: relative; /* Needed for custom arrow positioning */
+}
+
+.custom-nav-dropdown .dropdown-toggle::before {
+  content: "\f063"; /* FontAwesome down arrow icon */
+  font-family: 'FontAwesome'; /* Specify the font family */
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block; 
 }
 
 .recipe-list {

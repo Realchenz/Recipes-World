@@ -1,19 +1,20 @@
+/*import native components and third-party libs*/
 import React, { useEffect, useState } from 'react';
-import './App.css';
-import RecipeList from './components/RecipeList/RecipeList';
-import RecipeDetail from "./components/RecipeDetail/RecipeDetail";
-import TeamPage from "./components/TeamPage/TeamPage";
-import AddRecipe from "./components/AddRecipe/AddRecipe";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router} from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas'; 
 import axios from 'axios';
+
+/*import css*/
+import './App.css';
+
+/*import self-defined components*/
+import GroceryListOffcanvas from './components/Offcanvas/GroceryListOffcanvas';
+import HamburgerMenu from './components/subcomponents/HamburgerMenu';
+
+/*import routes modules*/
+import AppRoutes from './route/AppRoutes'; 
 
 const App = () => {
   const getLocalStorage = () => {
@@ -24,8 +25,6 @@ const App = () => {
       return []
     }
   }
-
-  const [recipes, setRecipes] = useState([]);
 
   const [groceryList, setGroceryList] = useState(getLocalStorage);
 
@@ -55,17 +54,16 @@ const App = () => {
   };
 
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [recipes, setRecipes] = useState([]);
+  const port = 8000; // Change this to the port used by the backend server
   useEffect(() => {
-    axios.get('http://localhost:8000/api/recipes').then(response => {
+    axios.get(`http://localhost:${port}/api/recipes`).then(response => {
       setRecipes(response.data);
-
       const recipeData = response.data;
-      console.log(JSON.stringify(recipeData[1]));
-      // console.log(recipes);
+      console.log(JSON.stringify(recipeData[1])); // console.log(recipes);
     }).catch(error => {
       console.error('Error: ', error);
     });
@@ -75,73 +73,24 @@ const App = () => {
     <Router>
       <div className="App">
         <header className="App-header">
-          <h1>My Recipe Book</h1>
+          <Navbar.Brand href="/">
+            Recipes World
+          </Navbar.Brand>
+          <div style={{ margin: '10px' }}></div>
+          <span className="text-muted" style={{ fontSize: '20px' }}>Give you an amazing experience</span>
         </header>
-        <Navbar expand="lg" className="bg-body-tertiary">
-          <Container>
-            <Navbar.Brand href="/">Home Page</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto">
-                <NavDropdown title="Recipes Links" id="basic-nav-dropdown">
-                  {recipes.map((recipe) => (
-                    <NavDropdown.Item href={"/recipes/" + recipe.id}>{recipe.title}</NavDropdown.Item>
-                  ))}
-                </NavDropdown>
-                <Nav.Link onClick={handleShow}>Grocery List</Nav.Link>
-                <Nav.Link href="/addrecipes">Add Your Recipes</Nav.Link>
-                <Nav.Link href="/team">Team Page</Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
+        
+        <HamburgerMenu recipes={recipes} handleShow={handleShow} />
 
-      <Offcanvas show={show} onHide={handleClose}>
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Grocery List</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          <div className="grocery-list">
-            <ul>
-              {groceryList.map((item, index) => (
-                <li key={index}>
-                  <Container>
-                    <Row>
-                      <Col md={8} order={1}>
-                        {item}
-                      </Col>
-                      <Col md={3} order={2}>
-                        <Button
-                          onClick={() => handleRemoveFromGroceryList(item)}
-                          style={{ padding: '2px 6px', fontSize: '0.8rem',
-                                   marginBottom: '10px', backgroundColor: 'white',
-                                   color: 'black' }}
-                          variant="primary">
-                          Remove
-                        </Button>
-                      </Col>                      
-                    </Row>
-                  </Container>
-                </li>
-              ))}
-            </ul>
-            <Button onClick={handleClearGroceryList}>Clear List</Button>
-          </div>
-        </Offcanvas.Body>
-      </Offcanvas>
+        <GroceryListOffcanvas
+          show={show}
+          handleClose={handleClose}
+          groceryList={groceryList}
+          handleRemoveFromGroceryList={handleRemoveFromGroceryList}
+          handleClearGroceryList={handleClearGroceryList}
+        />
 
-        <Routes>
-          <Route
-            path="/"
-            element={<RecipeList recipes={recipes} />}
-          />
-          <Route
-            path="/recipes/:id"
-            element={<RecipeDetail recipes={recipes} addToGroceryList={handleAddToGroceryList} />}
-          />
-          <Route path="/team" element={<TeamPage />} />
-          <Route path="/addrecipes" element={<AddRecipe recipes={recipes}/>} />
-        </Routes>
+        <AppRoutes recipes={recipes} handleAddToGroceryList={handleAddToGroceryList} />
       </div>
     </Router>
   );

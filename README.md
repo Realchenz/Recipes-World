@@ -1,7 +1,3 @@
-Sure, here's a revised version of your README file:
-
----
-
 # Recipe Web Application
 
 This is a web application for displaying and managing recipes. The application features a landing page with summaries of recipes, detailed recipe pages, a shopping cart for ingredients, a carousel for instruction display, and a team page. The back-end is developed using Express.js, and the application is connected with the USDA FoodData Central API.

@@ -1,4 +1,4 @@
-// Recipe.js
+// This file contains the schema for the Recipe model
 const mongoose = require('mongoose');
 
 const recipeSchema = new mongoose.Schema({
@@ -6,7 +6,6 @@ const recipeSchema = new mongoose.Schema({
   id: Number,
   description: String,
   ingredients: [String],
-  ingredientsInfo: [String],
   instructions: [String],
   image: String,
 });

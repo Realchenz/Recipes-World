@@ -10,7 +10,6 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-const PORT = 8000;
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -25,11 +24,14 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use(cors());
 
+// import mongoose and Recipe model
 const mongoose = require('mongoose');
 const Recipe = require('./models/Recipe');
+mongoose.connect('mongodb://localhost:27017/recipeDB', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
-mongoose.connect('mongodb://localhost:27017/recipes', { useNewUrlParser: true, useUnifiedTopology: true });
- 
+// define global variable to store recipes
 let recipes = [];
 
 app.get('/api/recipes', async (req, res) => {
@@ -66,8 +68,9 @@ app.post('/api/recipes',  (req, res) => {
   res.status(201).json(newRecipe);
 });
 
+const PORT = 8000;
 app.listen(PORT, () => {
-  console.log('Server is running');
+  console.log('Server is running on port', PORT);
 });
 
 // catch 404 and forward to error handler

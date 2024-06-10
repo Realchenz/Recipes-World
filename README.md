@@ -1,52 +1,86 @@
-# cosi-103a
-name: Zhenxu Chen
-email: zhenxuchen@brandeis.edu
+Sure, here's a revised version of your README file:
 
-name: Qifeng He
-email: qifenghe@brandeis.edu
+---
 
-name:Chengpeng Gao
-email:cgao@brandeis.edu
+# Recipe Web Application
 
-name: Yifei Zhou
-email:yifeizhou@brandeis.edu
+This is a web application for displaying and managing recipes. The application features a landing page with summaries of recipes, detailed recipe pages, a shopping cart for ingredients, a carousel for instruction display, and a team page. The back-end is developed using Express.js, and the application is connected with the USDA FoodData Central API.
 
-Descriptions:
+## Features
 
-The landing page displays summaries of 8 recipes, which includes the recipe title, an image, and a link to the details page for the recipe.
+### Landing Page
+- Displays summaries of 8 recipes including the title, an image, and a link to the detailed page.
 
-By clicking the detail button of each recipe, user will be navigated to the recipe detail page for that recipe. The recipe details pages include the recipe title, description, ingredients, steps, and an image. A return button will direct you back to the landing page in each details page.
+### Recipe Detail Page
+- Accessible by clicking the detail button on a recipe summary.
+- Displays the recipe title, description, ingredients, steps, and an image.
+- Includes a return button to navigate back to the landing page.
 
-We also added an ingredients shopping cart that lets users to add the ingredients displayed in each recipe to the shopping cart. The ingredient shopping list is stored in the local storage, which makes it persistent when navigating through different routes (including different recipes, team page, etc.) and page reloading. The shopping cart supports add, remove, and clear operations by users.
+### Ingredients Shopping Cart
+- Allows users to add ingredients from each recipe to a shopping cart.
+- The shopping list is stored in local storage, making it persistent across navigation and page reloads.
+- Supports add, remove, and clear operations.
 
-We also added a Carousel mode in front-end to display the instructions. This mode makes the display of instructions user-friendly in mobile web browser.
+### Carousel Mode
+- Displays instructions in a user-friendly manner for mobile web browsers.
 
-The team page shows all the developers of this web application.
+### Team Page
+- Shows all the developers of this web application.
 
-The back-end is developed using Express.js. The entry point of back-end is app.js file, and the PORT is 8000. The recipes is stored in /api/recipes. We used the REST APIs including GET, POST to let user to send recipe JSON file from front-end to back-end and push the changes to /api/recipes. Also, the front-end uses GET to get the recipes data from back-end.
+### Back-End
+- Developed using Express.js.
+- Entry point: `app.js` file, running on PORT 8000.
+- Recipes are stored in `/api/recipes`.
+- REST APIs including GET and POST are used for interaction between the front-end and back-end.
 
-To add a recipe JSON file, click the "Add Your Recipes" link in the Nav bar.
+### Add a Recipe
+- Users can add a recipe JSON file via the "Add Your Recipes" link in the Nav bar.
 
-We also added an ingredients shopping cart that lets users to add the ingredients displayed in each recipe to the shopping cart. The ingredient shopping list is stored in the local storage, which makes it persistent when navigating through different routes (including different recipes, team page, etc.) and page reloading. The shopping cart supports add, remove, and clear operations by users. 
+### USDA FoodData Central API Integration
+- Clicking an ingredient searches the ingredient name using the USDA FoodData Central API.
+- Opens an ingredient details page on the USDA website if available.
+- Uses local storage to navigate back to the application upon clicking 'Go Back' in the browser.
 
-We also added a Carousel mode in front-end to display the instructions. This mode makes the display of instructions user-friendly in mobile web browser. 
+### Error Alerts (Azure Cloud)
+- Three alerts set up for different error conditions:
+  1. **CPU Usage:** Condition: `UsageNanoCores > 0.1`, Severity: Warning.
+  2. **Network In:** Condition: `RxBytes > 200000 B`, Severity: Warning.
+  3. **Network Out:** Condition: `TxBytes > 1000000 B`, Severity: Warning.
 
-The back-end is developed using Express.js. The entry point of back-end is app.js file, and the PORT is 8000. The recipes is stored in /api/recipes. We used the REST APIs including GET, POST to let user to send recipe JSON file from front-end to back-end and push the changes to /api/recipes. Also, the front-end uses GET to get the recipes data from back-end. 
+## Installation and Running
 
-To add a recipe JSON file, click the "Add Your Recipes" link in the Nav bar. 
+1. Clone the repository:
+   ```bash
+   git clone git@github.com:Realchenz/GoodRecipes.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd recipe-demo
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the application:
+   ```bash
+   npm start
+   ```
 
-The routes are set up in the App.js file. Each recipe detail (total 8) has its own route using dynamic segment. The landing page route directs to the RecipeList component.
+## Project Structure
 
-Besides, our app is also connected with the USDA FoodData Central API. (API Key is hidden to the public in a file: .env) When user clicks an ingredient, the app will use the USDA FoodData Central API to search the ingredient name. Then, the app will open an ingredient details page in the USDA website (if the ingredient is available). When users click the 'Go Back' button in the web browser, it will navigate them back to the web application (We achieve this by using local storage). 
+- `app.js`: Entry point of the back-end.
+- `/api/recipes`: Endpoint for storing recipes.
+- `RecipeList`: Component for the landing page.
+- Each recipe detail has its own route with a dynamic segment.
 
-Moreover, three alerts for three different error conditions that seem likely and problematic for the website application are setup in the Azure cloud:
-1. CPU Usage: Condition: UsageNanoCores > 0.1, Severity: Warning.
-2. Network In: Condition: RxBytes > 200000 B, Severity: Warning.
-3. Network Out: Condition: TxBytes > 1000000 B, Severity: Warning.
+## Contributing
 
-Instructions:
-1. git clone git@github.com:Ailuruscp/cosi-103a.git
-2. cd recipe-demo
-3. npm install
-4. npm start
-   
+Feel free to contribute to this project by creating pull requests or submitting issues.
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+Feel free to modify any section as per your requirements.

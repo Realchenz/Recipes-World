@@ -8,11 +8,15 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import CarouselSlider from './CarouselSlider';
 import { CarouselProvider } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import styled from "styled-components";
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import './RecipeDetail.css';
+import ModalWrapper from './ModalWrapper';
+import CarouselWrapper from './CarouselWrapper';
 
 
 const RecipeDetail = ({ recipes, addToGroceryList }) => {
+  const groceryList = useSelector(state => state.groceryList);
   const { id } = useParams();
   let recipe = recipes.find((recipe) => recipe.id === parseInt(id));
 
@@ -73,7 +77,15 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
   }
 
   const handleAddToGroceryList = (ingredient) => {
+    // check if ingredient is already in the grocery list
+    if (isIngredientInGroceryList(ingredient)) {
+      return;
+    }
     addToGroceryList(ingredient);
+  };
+
+  const isIngredientInGroceryList = (ingredient) => {
+    return groceryList.includes(ingredient);
   };
 
 
@@ -81,49 +93,42 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
     <Container className="mt-5">
       <Row className="justify-content-center">
         <Col xs={10} lg={10}>
-          <h1 className="text-center mb-4">{recipe.title}</h1>
+          <h1 className="text-center mb-4 recipe-title">{recipe.title}</h1>
           <Row className="mb-4">
             <Col xs={12} md={6} order={1}>
               <div className="text-muted">
-                <p className="mb-3" style={{ fontSize: '18px', fontStyle: 'italic' }}>
+                <p className="mb-3" style={{ fontSize: '20px', fontStyle: 'italic', marginTop: '50px'}}>
                   {recipe.description}
                 </p>
-                <h3 className="mb-3">Ingredients:</h3>
-                <ul className="list-unstyled">
-                  {recipe.ingredients.map((ingredient, index) => (
-                    <li key={index} style={{ fontSize: '16px' }}>
-                      <Container>
-                        <Row>
-                          <Col md={6}>
-                          <a href={`https://fdc.nal.usda.gov/fdc-app.html#/food-details/${ingredientsData[index]}/nutrients`} target="_blank" rel="noopener noreferrer">{ingredient}</a>
-                          </Col>
-                          <Col md={6}>
-                            <Button
-                              onClick={() => handleAddToGroceryList(ingredient)}
-                              style={{ padding: '2px 10px', fontSize: '0.8rem',
-                                      marginBottom: '10px', backgroundColor: 'white', 
-                                      color: 'black' }}
-                              variant="primary">
-                              Add to Grocery List
-                            </Button>
-                          </Col>
-                        </Row>
-                      </Container>
-                    </li>
-                  ))}
-                </ul>
+                <Container className='ingredient-box'>
+                  <h3 className="mb-3">Ingredients</h3>
+                  <ul className="list-unstyled">
+                    {recipe.ingredients.map((ingredient, index) => (
+                      <li key={index} style={{ fontSize: '16px' }}>
+                        <Container>
+                          <Row>
+                            <Col md={6}>
+                            <a href={`https://fdc.nal.usda.gov/fdc-app.html#/food-details/${ingredientsData[index]}/nutrients`} target="_blank" rel="noopener noreferrer">{ingredient}</a>
+                            </Col>
+                            <Col md={6}>
+                              <Button
+                                onClick={() => handleAddToGroceryList(ingredient)}
+                                className='add-to-grocery-list-button'
+                                >
+                                Add to Grocery List
+                              </Button>
+                            </Col>
+                          </Row>
+                        </Container>
+                      </li>
+                    ))}
+                  </ul>
+                </Container>
                 <Container className="mt-5">
                   <Row>
                     <Button
                       onClick={handleShowInstructions}
-                      style={{
-                        padding: '6px 10px',
-                        fontSize: '1.0rem',
-                        marginBottom: '10px',
-                        backgroundColor: 'white',
-                        color: 'black',
-                      }}
-                      variant="primary"
+                      className="show-instructions-button"
                       index={recipe.id}
                     >
                       Show Instructions
@@ -137,16 +142,14 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
                 src={recipe.image}
                 alt={recipe.title}
                 className="img-fluid rounded"
-                style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </Col>
           </Row>
           <Row>
             <Link to={`/`}>
               <Button
-                style={{ padding: '6px 10px', fontSize: '1.0rem',
-                  marginBottom: '10px', backgroundColor: 'white', color: 'black',
-                }}
+                className="back-to-home-button"
                 variant="primary"
                 index={recipe.id}>
                 Back To Home
@@ -179,67 +182,6 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
     </Container>
   );
 };
-
-const CarouselWrapper = styled.div`
-  &.carousel-container {
-    margin: 12px auto;
-    max-width: 272px;
-    filter: drop-shadow(0px 12px 30px rgba(50, 50, 50, 0.2));
-
-    /* Total-width (including margin) + 1 additional margin */
-    @media (min-width: 832px) {
-      max-width: 704px;
-    }
-
-    @media (min-width: 1088px) {
-      max-width: 960px;
-    }
-
-    @media (min-width: 1272px) {
-      max-width: 1152px;
-    }
-
-    @media (min-width: 1504px) {
-      max-width: 1344px;
-    }
-  }
-
-  /* This class is found in Slide from pure-react-carousel */
-  /* We need to override it to add space between slides */
-  .carousel__inner-slide {
-    /* width: 100% - margin */
-    width: calc(100% - 16px);
-    /* margin-left: margin/2 */
-    /* margin is required to adjust positioning as the width is diminished*/
-    margin-left: 8px;
-
-    @media (min-width: 1272px) {
-      width: calc(100% - 24px);
-      margin-left: 12px;
-    }
-
-    @media (min-width: 1272px) {
-      width: calc(100% - 32px);
-      margin-left: 16px;
-    }
-  }
-`;
-
-const ModalWrapper = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.7); 
-`;
 
 export default RecipeDetail;
 

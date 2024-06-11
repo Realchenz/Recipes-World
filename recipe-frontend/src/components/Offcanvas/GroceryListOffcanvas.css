@@ -1,0 +1,49 @@
+/* GroceryListOffcanvas.css */
+    .offcanvas-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .offcanvas-title {
+        color: #e88c0c;
+    }
+
+    .grocery-list {
+        padding: 20px;
+    }
+  
+  .grocery-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .grocery-list li {
+    margin-bottom: 10px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .grocery-list li .row {
+    align-items: center;
+}
+  
+  .grocery-list button {
+    padding: 2px 6px;
+    font-size: 1.2rem;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    cursor: pointer;
+  }
+  
+  .grocery-list button:hover {
+    background-color: #ebbd34;
+    color: white;
+  }
+  
+  .center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }

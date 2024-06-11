@@ -12,16 +12,6 @@ const TeamPage = () => {
             role: "Lazy schoolboy and Doraemon's best friend",
             image: "https://www.dora-world.com.tw/dist/images/character_3.png"
         },
-        {
-            name: "Gian",
-            role: "Bully and Nobita's friend?",
-            image: "https://scontent.fphl1-1.fna.fbcdn.net/v/t1.6435-9/49623507_304615953495973_512919674686537728_n.png?_nc_cat=103&ccb=1-7&_nc_sid=947906&_nc_ohc=2X6_sPdvRLUAX_nb3x6&_nc_ht=scontent.fphl1-1.fna&oh=00_AfDto70Z6CQiUp7PYdMMb4WIG-eJmMByIwWz7Oidsxql3A&oe=65F0EEA0"
-        },
-        {
-            name: "Suneo",
-            role: "Rich kid and Nobita's friend?",
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlt_-ysYqyzmu91KDbvO7FRPgZOsQyuEGVZxhJ_mwQyw&s"
-        },
     ];
     return (
         <div>

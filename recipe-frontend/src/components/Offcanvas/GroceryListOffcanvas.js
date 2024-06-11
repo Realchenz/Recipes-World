@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Container, Row, Col, Offcanvas } from 'react-bootstrap';
+import './GroceryListOffcanvas.css'; // 导入CSS文件
 
 const GroceryListOffcanvas = (props) => {
     const { show, handleClose, groceryList, handleRemoveFromGroceryList, handleClearGroceryList } = props;
@@ -21,7 +22,6 @@ const GroceryListOffcanvas = (props) => {
                     <Col md={3} order={2}>
                       <Button
                         onClick={() => handleRemoveFromGroceryList(item)}
-                        style={{ padding: '2px 6px', fontSize: '0.8rem', marginBottom: '10px', backgroundColor: 'white', color: 'black' }}
                         variant="primary">
                         Remove
                       </Button>
@@ -31,7 +31,9 @@ const GroceryListOffcanvas = (props) => {
               </li>
             ))}
           </ul>
-          <Button onClick={handleClearGroceryList}>Clear List</Button>
+          <div className='center-button'>
+            <Button onClick={handleClearGroceryList}>Clear List</Button>
+          </div>
         </div>
       </Offcanvas.Body>
     </Offcanvas>

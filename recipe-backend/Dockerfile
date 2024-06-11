@@ -1,11 +1,11 @@
 FROM node:18
 
-WORKDIR /workspaces/recipe-frontend
+WORKDIR /workspaces/recipe-backend
 
 COPY . .
 
 RUN npm install
 
-EXPOSE 3000
+EXPOSE 8000
 
 CMD ["npm", "start"]

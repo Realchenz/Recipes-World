@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
+const { v4: uuidv4 } = require('uuid');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -47,7 +48,7 @@ app.post('/api/recipes',  (req, res) => {
   const body = req.body;
 
   const newRecipe = {
-    id: recipes.length + 1,
+    id: uuidv4().toString(),
     title: body.title,
     description: body.description,
     ingredients: body.ingredients,
@@ -72,7 +73,7 @@ app.delete('/api/recipes/:id', async (req, res) => {
   const id = req.params.id;
   console.log('Deleting recipe with id:', id);
   try {
-    await Recipe.deleteOne({ id: parseInt(id) });
+    await Recipe.deleteOne({ id: id });
     recipes = recipes.filter(recipe => recipe.id !== parseInt(id));
     res.status(204).end();
   } catch (err) {

@@ -18,7 +18,7 @@ import CarouselWrapper from './CarouselWrapper';
 const RecipeDetail = ({ recipes, addToGroceryList }) => {
   const groceryList = useSelector(state => state.groceryList);
   const { id } = useParams();
-  let recipe = recipes.find((recipe) => recipe.id === parseInt(id));
+  let recipe = recipes.find((recipe) => recipe.id === id);
 
   if(recipe){
     localStorage.setItem('lastRecipe', JSON.stringify(recipe));

@@ -1,8 +1,7 @@
 /*import native components and third-party libs*/
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router} from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios';
 
@@ -11,46 +10,27 @@ import './App.css';
 
 /*import self-defined components*/
 import GroceryListOffcanvas from './components/Offcanvas/GroceryListOffcanvas';
-import HamburgerMenu from './components/subcomponents/HamburgerMenu';
+import HamburgerMenu from './components/HamburgerMenu/HamburgerMenu';
 
 /*import routes modules*/
 import AppRoutes from './route/AppRoutes'; 
 
 const App = () => {
-  const getLocalStorage = () => {
-    const groceryData = localStorage.getItem('groceryData')
-    if (groceryData) {
-      return JSON.parse(groceryData)
-    } else {
-      return []
-    }
-  }
 
-  const [groceryList, setGroceryList] = useState(getLocalStorage);
+  // Redux state management for grocery list
+  const groceryList = useSelector(state => state.groceryList);
+  const dispatch = useDispatch();
 
   const handleAddToGroceryList = (ingredient) => {
-    handleShow();
-    setGroceryList((prevList) => {
-      prevList = [...prevList,ingredient]
-      localStorage.setItem('groceryData', JSON.stringify(prevList))
-      return prevList
-    });
+    dispatch({ type: 'ADD_TO_GROCERY_LIST', payload: ingredient });
   };
 
   const handleRemoveFromGroceryList = (ingredient) => {
-    setGroceryList((prevList) => {
-      prevList = prevList.filter((item) => item !== ingredient)
-      localStorage.setItem('groceryData', JSON.stringify(prevList))
-      if(prevList.length === 0){
-        localStorage.removeItem('groceryData');
-      }
-      return prevList
-    });
+    dispatch({ type: 'REMOVE_FROM_GROCERY_LIST', payload: ingredient });
   };
 
   const handleClearGroceryList = () => {
-    localStorage.removeItem('groceryData');
-    setGroceryList([]);
+    dispatch({ type: 'CLEAR_GROCERY_LIST' });
   };
 
   // Offcanvas state
@@ -73,13 +53,14 @@ const App = () => {
   return (
     <Router>
       <div className="App">
+        <HamburgerMenu recipes={recipes} handleShow={handleShow} />
+        
         <header className="App-header">
           <Navbar.Brand href="/">
             Recipes World
           </Navbar.Brand>
           <div style={{ margin: '10px' }}></div>
           <span className="text-muted" style={{ fontSize: '20px' }}>Give you an amazing experience</span>
-          <HamburgerMenu recipes={recipes} handleShow={handleShow} />
         </header>
 
         <GroceryListOffcanvas

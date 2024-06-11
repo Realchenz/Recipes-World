@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router} from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios';
+import { FaShoppingCart } from 'react-icons/fa';  
 
 /*import css*/
 import './App.css';
@@ -54,13 +55,22 @@ const App = () => {
     <Router>
       <div className="App">
         <HamburgerMenu recipes={recipes} handleShow={handleShow} />
-        
+
         <header className="App-header">
-          <Navbar.Brand href="/">
-            Recipes World
-          </Navbar.Brand>
-          <div style={{ margin: '10px' }}></div>
-          <span className="text-muted" style={{ fontSize: '20px' }}>Give you an amazing experience</span>
+          <div className='icon-container'>
+          <FaShoppingCart 
+            style={{ cursor: 'pointer', fontSize: '24px', margin: '10px' }} 
+            onClick={handleShow} 
+          />
+          </div>
+          <div className='content-container'>
+            <Navbar.Brand href="/">
+              Recipes World
+            </Navbar.Brand>
+            <div style={{ margin: '10px' }}></div>
+            <span className="text-muted" style={{ fontSize: '20px' }}>Give you an amazing experience</span>
+          </div>
+          <div className="spacer"></div>
         </header>
 
         <GroceryListOffcanvas

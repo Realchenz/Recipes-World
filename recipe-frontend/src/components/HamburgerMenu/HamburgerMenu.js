@@ -25,9 +25,6 @@ const HamburgerMenu = ({ recipes, handleShow }) => {
           ))}
         </div>}
       </div>
-      <a className="menu-item" onClick={handleShow()} href="#">
-        Grocery List
-      </a>
       <a className="menu-item" href="/addrecipes">
         Add Your Recipes
       </a>

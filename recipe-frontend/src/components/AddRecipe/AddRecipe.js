@@ -1,54 +1,95 @@
-import axios from 'axios';
 import React, { useState } from 'react';
+import './AddRecipe.css';
 
-const AddRecipe = ( {recipes} ) => {
-  const [recipe, setRecipe] = useState('');
-  const [isValidJson, setIsValidJson] = useState(true);
+function AddRecipe() {
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    ingredients: '',
+    instructions: '',
+    imageURL: ''
+  });
 
   const handleChange = (e) => {
-    setRecipe(e.target.value);
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
   };
 
-  const validateAndSubmit = () => {
-    try {
-      // Attempt to parse the JSON to check its validity
-      const parsedRecipe = JSON.parse(recipe);
-      setIsValidJson(true);
-      // Here, you can handle the valid JSON as needed, e.g., send it to an API
-      console.log('Valid JSON:', recipe);
-      alert('Recipe submitted successfully!');
-      
-      axios.post('http://localhost:8000/api/recipes', parsedRecipe, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }).then(response => {
-        console.log('Recipe added: ', response.data);
-      }).catch(error => {
-        console.log('Error adding recipe: ', error.response.data);
-      });
-    } catch (error) {
-      setIsValidJson(false);
-      alert('The provided recipe is not valid JSON.');
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    // Handle form submission, e.g., send data to the server
   };
 
   return (
-    <div>
-      <h2>Input Your Recipe in JSON Format</h2>
-      <textarea
-        value={recipe}
-        onChange={handleChange}
-        rows="10"
-        cols="50"
-        style={{ fontFamily: 'monospace' }}
-      />
-      <div>
-        <button onClick={validateAndSubmit}>Submit Recipe</button>
+    <form className="recipe-form" onSubmit={handleSubmit}>
+      <h2>Input Recipe Info</h2>
+      
+      <div className="form-group">
+        <label htmlFor="title">Title</label>
+        <input 
+            type="text" 
+            id="title" 
+            name="title" 
+            value={formData.title} 
+            onChange={handleChange} 
+            required 
+        />
       </div>
-      {!isValidJson && <p style={{ color: 'red' }}>Please enter valid JSON.</p>}
+      
+
+    <div className="form-group">
+        <label htmlFor="description">Description</label>
+        <input
+            type="text" 
+            id="description" 
+            name="description" 
+            value={formData.description} 
+            onChange={handleChange} 
+            required 
+        />
     </div>
+      
+    <div className="form-group">
+      <label htmlFor="ingredients">Ingredients</label>
+      <input
+        type="text"
+        id="ingredients" 
+        name="ingredients" 
+        value={formData.ingredients} 
+        onChange={handleChange} 
+        required 
+      />
+    </div>
+      
+    <div className="form-group">
+      <label htmlFor="instructions">Instructions</label>
+      <input
+        type="text"
+        id="instructions" 
+        name="instructions" 
+        value={formData.instructions} 
+        onChange={handleChange} 
+        required 
+      />
+    </div>
+      
+    <div className="form-group">
+      <label htmlFor="imageURL">Image</label>
+      <input 
+        type="text" 
+        id="imageURL" 
+        name="imageURL" 
+        onChange={handleChange} 
+      />
+    </div>
+      
+      <button type="submit">Submit Recipe</button>
+    </form>
   );
-};
+}
 
 export default AddRecipe;

@@ -26,10 +26,10 @@ const HamburgerMenu = ({ recipes, handleShow }) => {
         </div>}
       </div>
       <a className="menu-item" href="/addrecipes">
-        Add Your Recipes
+        Insert Recipe
       </a>
       <a className="menu-item" href="/team">
-        Team Page
+        People
       </a>
     </Menu>
   );

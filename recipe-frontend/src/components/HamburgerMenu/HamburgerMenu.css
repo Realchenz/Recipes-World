@@ -41,3 +41,13 @@
     padding-left: 15px;
   }
   
+  #search {
+    cursor: pointer;
+  }
+
+  .search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  } 

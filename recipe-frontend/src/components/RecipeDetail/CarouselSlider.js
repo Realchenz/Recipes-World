@@ -1,42 +1,23 @@
 import React, { useContext, useEffect } from "react";
-
-import {
-  ButtonBack,
-  ButtonNext,
-  DotGroup,
-  Slide,
-  Slider
-} from "pure-react-carousel";
+import { ButtonBack, ButtonNext, DotGroup, Slide, Slider } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import { CarouselContext } from "pure-react-carousel";
-
 import styled from "styled-components";
-
 import Arrow from "./arrow.svg";
 import Card from "./Card";
 import useWindowSize from "../hooks/windowSize";
+import "./CarouselSlider.css"; 
 
-const CarouselSlider = ({ setSlideCount, setCurrentSlide, recipe}) => {
+const CarouselSlider = ({ setSlideCount, setCurrentSlide, recipe }) => {
   const screenWidth = useWindowSize();
-
-  //pure-react-carousel context
   const carouselContext = useContext(CarouselContext);
 
   useEffect(() => {
     const updateCarouselSlide = (slideToBeVisible) => {
-      const {
-        currentSlide,
-        totalSlides,
-        visibleSlides
-      } = carouselContext.state;
-
+      const { currentSlide, totalSlides, visibleSlides } = carouselContext.state;
       setSlideCount(slideToBeVisible);
 
-      //this is a fix to reset currentSlide when screen resizes
-      if (
-        currentSlide >= totalSlides - visibleSlides ||
-        currentSlide >= totalSlides - slideToBeVisible
-      ) {
+      if (currentSlide >= totalSlides - visibleSlides || currentSlide >= totalSlides - slideToBeVisible) {
         setCurrentSlide(totalSlides - slideToBeVisible);
       }
     };
@@ -45,9 +26,7 @@ const CarouselSlider = ({ setSlideCount, setCurrentSlide, recipe}) => {
       updateCarouselSlide(1);
     } else if (screenWidth < 1088) {
       updateCarouselSlide(2);
-    }
-    //>= 1088
-    else {
+    } else {
       updateCarouselSlide(3);
     }
   }, [screenWidth, setSlideCount, setCurrentSlide, carouselContext]);
@@ -55,11 +34,11 @@ const CarouselSlider = ({ setSlideCount, setCurrentSlide, recipe}) => {
   return (
     <Wrapper>
       <Slider>
-      {recipe.instructions.map((instruction, index) => (
-        <Slide key={index} index={index} className="slide">
-          <Card index={index + 1} recipe={recipe} instruction={instruction} />
-        </Slide>
-      ))}
+        {recipe.instructions.map((instruction, index) => (
+          <Slide key={index} index={index} className="slide">
+            <Card index={index + 1} recipe={recipe} instruction={instruction} />
+          </Slide>
+        ))}
       </Slider>
       <div className="controls">
         <ButtonBack className="btn-arrow reverse-arrow">
@@ -74,48 +53,6 @@ const CarouselSlider = ({ setSlideCount, setCurrentSlide, recipe}) => {
   );
 };
 
-const Wrapper = styled.div`
-  .controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .btn-arrow {
-      border: none;
-      background: none;
-      padding: 11px 20px;
-    }
-
-    .reverse-arrow {
-      transform: rotateY(180deg);
-    }
-
-    .dot-group {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .carousel__dot {
-        width: 8px;
-        height: 8px;
-        border: none;
-        border-radius: 50%;
-        margin: 0 4px;
-        padding: 0;
-        background-color: #c3c4ca;
-      }
-
-      /* This class is found in DotGroup from pure-react-carousel */
-      /* We need to override it to add our styles */
-      .carousel__dot--selected {
-        width: 16px;
-        height: 8px;
-        border-radius: 10px;
-        background-color: #6267a1;
-        transition: background 0.4s ease;
-      }
-    }
-  }
-`;
+const Wrapper = styled.div``; // Removed CSS here as it's now in a separate file
 
 export default CarouselSlider;

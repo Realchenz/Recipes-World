@@ -1,5 +1,5 @@
 /*import native components and third-party libs*/
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router} from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
@@ -14,7 +14,7 @@ import GroceryListOffcanvas from './components/Offcanvas/GroceryListOffcanvas';
 import HamburgerMenu from './components/HamburgerMenu/HamburgerMenu';
 
 /*import routes modules*/
-import AppRoutes from './route/AppRoutes'; 
+import AppRoutes from './route/AppRoutes';
 
 const App = () => {
 
@@ -36,9 +36,11 @@ const App = () => {
 
   // Offcanvas state
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleOffcanvasClose = () => setShow(false);
+  const handleOffcanvasShow = () => setShow(true);
 
+
+  // Fetch recipes from the backend server
   const [recipes, setRecipes] = useState([]);
   const port = 8000; // Change this to the port used by the backend server
   useEffect(() => {
@@ -51,16 +53,35 @@ const App = () => {
     });
   }, []);
 
+  const initialState = {
+    filteredRecipes: []
+  };
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'SET_FILTERED_RECIPES':
+        return { ...state, filteredRecipes: action.payload };
+      default:
+        return state;
+    }
+  };
+
+  const [recipeState, recipeDispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    recipeDispatch({ type: 'SET_FILTERED_RECIPES', payload: recipes });
+  }, [recipes]);
+
   return (
     <Router>
       <div className="App">
-        <HamburgerMenu recipes={recipes} handleShow={handleShow} />
+        <HamburgerMenu recipes={recipes} dispatch={recipeDispatch} />
 
         <header className="App-header">
           <div className='icon-container'>
           <FaShoppingCart 
             style={{ cursor: 'pointer', fontSize: '24px', margin: '10px' }} 
-            onClick={handleShow} 
+            onClick={handleOffcanvasShow} 
           />
           </div>
           <div className='content-container'>
@@ -75,13 +96,13 @@ const App = () => {
 
         <GroceryListOffcanvas
           show={show}
-          handleClose={handleClose}
+          handleClose={handleOffcanvasClose}
           groceryList={groceryList}
           handleRemoveFromGroceryList={handleRemoveFromGroceryList}
           handleClearGroceryList={handleClearGroceryList}
         />
 
-        <AppRoutes recipes={recipes} handleAddToGroceryList={handleAddToGroceryList} />
+        <AppRoutes recipes={recipeState.filteredRecipes} handleAddToGroceryList={handleAddToGroceryList} />
       </div>
     </Router>
   );

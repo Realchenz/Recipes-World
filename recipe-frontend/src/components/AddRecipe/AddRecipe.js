@@ -167,7 +167,7 @@ function AddRecipe() {
           name="ingredients" 
           value={formData.ingredients} 
           onChange={handleChange} 
-          placeholder="e.g., 2 cups of flour, 1/2 cup of sugar, etc. Separated with comma."
+          placeholder="2 cups of flour, 1/2 cup of sugar (Comma Separated) ."
           required 
         />
       </div>
@@ -180,7 +180,7 @@ function AddRecipe() {
           name="instructions" 
           value={formData.instructions} 
           onChange={handleChange} 
-          placeholder="e.g., Mix flour and sugar, Bake at 350 degrees, etc. Separated with semi colon."
+          placeholder="Mix flour and sugar.; Bake at 350 degrees. (Semi-Colon Separated)."
           required 
         />
       </div>

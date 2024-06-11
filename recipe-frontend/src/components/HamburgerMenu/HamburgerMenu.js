@@ -3,11 +3,17 @@ import {React, useState} from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import './HamburgerMenu.css';
 
-const HamburgerMenu = ({ recipes, handleShow }) => {
-    const [showSubMenu, setShowSubMenu] = useState(false);
+const HamburgerMenu = ({ recipes, dispatch }) => {
+    const [showSearch, setShowSearch] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
-    const toggleSubMenu = () => {
-        setShowSubMenu(!showSubMenu);
+    const toggleSearch = () => {
+        setShowSearch(!showSearch);
+    };
+
+    const handleSearch = () => {
+      const filtered = recipes.filter(recipe => recipe.title.toLowerCase().includes(searchTerm.toLowerCase()));
+      dispatch({ type: 'SET_FILTERED_RECIPES', payload: filtered });
     };
   
   return (
@@ -15,14 +21,12 @@ const HamburgerMenu = ({ recipes, handleShow }) => {
       <a className="menu-item" href="/">
         Home
       </a>
-      <div className="menu-item" onClick={toggleSubMenu}>
-        Recipes Lists
-        {showSubMenu && <div className="sub-menu">
-          {recipes.map((recipe) => (
-            <a key={recipe.id} className="menu-item" href={"/recipes/" + recipe.id}>
-              {recipe.title}
-            </a>
-          ))}
+      <div id = "search" className="menu-item" onClick={toggleSearch}>
+        Search Recipes
+        {showSearch && 
+        <div className="search-box"  onClick={(e) => e.stopPropagation()}>
+          <input type="text" placeholder="Search recipes..." onChange={(e) => setSearchTerm(e.target.value)}  />
+          <button onClick={handleSearch}>Search</button>
         </div>}
       </div>
       <a className="menu-item" href="/addrecipes">

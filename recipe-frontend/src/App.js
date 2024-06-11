@@ -47,7 +47,7 @@ const App = () => {
     axios.get(`http://localhost:${port}/api/recipes`).then(response => {
       setRecipes(response.data);
       const recipeData = response.data;
-      console.log(JSON.stringify(recipeData[1])); // console.log(recipes);
+      // console.log(JSON.stringify(recipeData[1])); // console.log(recipes);
     }).catch(error => {
       console.error('Error: ', error);
     });
@@ -102,7 +102,9 @@ const App = () => {
           handleClearGroceryList={handleClearGroceryList}
         />
 
-        <AppRoutes recipes={recipeState.filteredRecipes} handleAddToGroceryList={handleAddToGroceryList} />
+        <AppRoutes recipes={recipeState.filteredRecipes} 
+        handleAddToGroceryList={handleAddToGroceryList}
+        setRecipes = {setRecipes}/>
       </div>
     </Router>
   );

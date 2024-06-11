@@ -68,6 +68,20 @@ app.post('/api/recipes',  (req, res) => {
   res.status(201).json(newRecipe);
 });
 
+app.delete('/api/recipes/:id', async (req, res) => {
+  const id = req.params.id;
+  console.log('Deleting recipe with id:', id);
+  try {
+    await Recipe.deleteOne({ id: parseInt(id) });
+    recipes = recipes.filter(recipe => recipe.id !== parseInt(id));
+    res.status(204).end();
+  } catch (err) {
+    res.status(400).send(err.message);
+  } 
+}
+);
+
+
 const PORT = 8000;
 app.listen(PORT, () => {
   console.log('Server is running on port', PORT);

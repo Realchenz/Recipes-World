@@ -1,6 +1,10 @@
 // This file contains the schema for the Recipe model
 const mongoose = require('mongoose');
 
+const recipeDB = mongoose.createConnection('mongodb://localhost:27017/recipeDB', { useNewUrlParser: true, useUnifiedTopology: true });
+recipeDB.on('connected', () => console.log('Connected to recipeDB'));
+recipeDB.on('error', err => console.error('Error connecting to recipeDB:', err));
+
 const recipeSchema = new mongoose.Schema({
   title: String,
   id: { type: String, unique: true },
@@ -10,6 +14,6 @@ const recipeSchema = new mongoose.Schema({
   image: String,
 });
 
-const Recipe = mongoose.model('Recipe', recipeSchema);
+const Recipe = recipeDB.model('Recipe', recipeSchema);
 
 module.exports = Recipe;

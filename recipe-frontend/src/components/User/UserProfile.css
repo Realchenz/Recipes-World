@@ -1,0 +1,28 @@
+.user-profile {
+    border: 1px solid #ccc;
+    padding: 20px;
+    max-width: 400px;
+    margin: 20px auto;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .avatar img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .user-name {
+    margin-top: 10px;
+  }
+  
+  .user-email {
+    color: #666;
+  }
+  
+  .user-bio {
+    margin-top: 10px;
+    font-style: italic;
+  }
+  

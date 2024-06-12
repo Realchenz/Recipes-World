@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -8,14 +9,29 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (username === 'user' && password === 'password') {
-      dispatch({ type: 'LOGIN' });
-      
-    } else {
-      setError('Invalid username or password');
+    try {
+      const response = await axios.post('http://localhost:8000/api/login', {
+        username,
+        password,
+      });
+      if (response.data.success) {
+        // Login successful, handle accordingly
+        console.log('Login successful');
+        // Update the Redux state to reflect the user is logged in
+        dispatch({ type: 'LOGIN' });
+
+        localStorage.setItem('jwtToken', response.data.token);
+        navigate('/'); // Redirect to home page
+      } else {
+        setError(response.data.message);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      setError('An error occurred. Please try again later.');
     }
   };
 

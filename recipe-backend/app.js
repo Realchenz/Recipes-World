@@ -5,6 +5,10 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -20,17 +24,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use(cors());
 
-// import mongoose and Recipe model
-const mongoose = require('mongoose');
+dotenv.config();
+
+const secretKey = process.env.JWT_SECRET;
+
+
+// import mongoose and models
 const Recipe = require('./models/Recipe');
-mongoose.connect('mongodb://localhost:27017/recipeDB', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
+const User = require('./models/User');
+const UserInfo = require('./models/UserInfo'); 
 
 // define global variable to store recipes
 let recipes = [];
@@ -85,6 +93,57 @@ app.delete('/api/recipes/:id', async (req, res) => {
   } 
 }
 );
+
+/*User Login*/
+app.post('/api/login', async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.json({ success: false, message: 'Username not exist' });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.json({ success: false, message: 'Invalid password' });
+    }
+    const token = jwt.sign({ id: user._id, username: user.username }, secretKey, { expiresIn: '1h' });
+    res.json({ success: true, token });
+  } catch (error) {
+    res.status(500).send('An error occurred. Please try again later.');
+  }
+});
+
+/*User data transfer*/
+app.get('/api/user', async (req, res) => {
+  const token = req.header('Authorization').replace('Bearer ', '');
+
+  if (!token) {
+    return res.status(401).send({ error: 'Token is missing' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    const username = decoded.username;
+
+    const user = await UserInfo.findOne({ username: username });
+
+    if (!user) {
+      return res.status(404).send({ error: 'User not found' });
+    }
+
+    res.send({
+      username: user.username,
+      name: user.name,
+      avatarUrl: user.avatarUrl,
+      email: user.email,
+      bio: user.bio,
+    });
+  } catch (error) {
+    res.status(400).send({ error: 'Invalid token' });
+  }
+});
 
 
 const PORT = 8000;

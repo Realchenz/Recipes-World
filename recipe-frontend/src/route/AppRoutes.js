@@ -5,7 +5,7 @@ import RecipeDetail from "../components/RecipeDetail/RecipeDetail";
 import TeamPage from "../components/TeamPage/TeamPage";
 import AddRecipe from "../components/AddRecipe/AddRecipe";
 import Login from "../components/User/Login";
-import Profile from "../components/User/Profile";
+import UserProfile from "../components/User/UserProfile";
 
 const AppRoutes = ({ recipes, handleAddToGroceryList, setRecipes }) => {
   return (
@@ -15,7 +15,7 @@ const AppRoutes = ({ recipes, handleAddToGroceryList, setRecipes }) => {
       <Route path="/team" element={<TeamPage />} />
       <Route path="/addrecipes" element={<AddRecipe recipes={recipes} />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={<UserProfile />} />
     </Routes>
   );
 };

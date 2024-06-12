@@ -1,0 +1,37 @@
+[
+    {
+      "username": "user1",
+      "name": "Alice Johnson",
+      "avatarUrl": "https://example.com/avatars/alice.jpg",
+      "email": "alice.johnson@example.com",
+      "bio": "Avid traveler and food lover."
+    },
+    {
+      "username": "user2",
+      "name": "Bob Smith",
+      "avatarUrl": "https://example.com/avatars/bob.jpg",
+      "email": "bob.smith@example.com",
+      "bio": "Software engineer with a passion for open-source projects."
+    },
+    {
+      "username": "user3",
+      "name": "Charlie Brown",
+      "avatarUrl": "https://example.com/avatars/charlie.jpg",
+      "email": "charlie.brown@example.com",
+      "bio": "Music producer and DJ."
+    },
+    {
+      "username": "user4",
+      "name": "Diana Prince",
+      "avatarUrl": "https://example.com/avatars/diana.jpg",
+      "email": "diana.prince@example.com",
+      "bio": "Graphic designer and illustrator."
+    },
+    {
+      "username": "user5",
+      "name": "Eve Adams",
+      "avatarUrl": "https://example.com/avatars/eve.jpg",
+      "email": "eve.adams@example.com",
+      "bio": "Fitness coach and nutritionist."
+    }
+  ]

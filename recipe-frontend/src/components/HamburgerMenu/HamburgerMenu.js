@@ -2,10 +2,13 @@
 import {React, useState} from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import './HamburgerMenu.css';
+import { FaUserCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
-const HamburgerMenu = ({ recipes, dispatch }) => {
+const HamburgerMenu = ({ recipes, dispatch, isLoggedIn }) => {
     const [showSearch, setShowSearch] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
 
     const toggleSearch = () => {
         setShowSearch(!showSearch);
@@ -14,6 +17,14 @@ const HamburgerMenu = ({ recipes, dispatch }) => {
     const handleSearch = () => {
       const filtered = recipes.filter(recipe => recipe.title.toLowerCase().includes(searchTerm.toLowerCase()));
       dispatch({ type: 'SET_FILTERED_RECIPES', payload: filtered });
+    };
+
+    const handleUserIconClick = () => {
+      if (isLoggedIn) {
+        navigate('/profile'); // Redirect to profile page if logged in
+      } else {
+        navigate('/login'); // Redirect to login page if not logged in
+      }
     };
   
   return (
@@ -35,6 +46,9 @@ const HamburgerMenu = ({ recipes, dispatch }) => {
       <a className="menu-item" href="/team">
         People
       </a>
+      <div className="user-icon" onClick={handleUserIconClick}>
+        <FaUserCircle size="2em" />
+      </div>
     </Menu>
   );
 };

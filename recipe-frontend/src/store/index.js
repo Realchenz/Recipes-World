@@ -27,6 +27,7 @@ const persistedState = loadState(); // Load any saved state
 
 const initialState = persistedState || {
   groceryList: [],
+  isLoggedIn: false,
 };
 
 function rootReducer(state = initialState, action) {
@@ -46,6 +47,16 @@ function rootReducer(state = initialState, action) {
         ...state,
         groceryList: [],
       };
+    case 'LOGIN': // Handle login action
+      return {
+        ...state,
+        isLoggedIn: true,
+      };
+    case 'LOGOUT': // Handle logout action
+      return {
+        ...state,
+        isLoggedIn: false,
+      };
     default:
       return state;
   }
@@ -57,6 +68,7 @@ const store = createStore(rootReducer);
 store.subscribe(() => {
   saveState({
     groceryList: store.getState().groceryList,
+    isLoggedIn: store.getState().isLoggedIn,
   });
 });
 

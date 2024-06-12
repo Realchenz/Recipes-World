@@ -13,6 +13,7 @@ import './App.css';
 import GroceryListOffcanvas from './components/Offcanvas/GroceryListOffcanvas';
 import HamburgerMenu from './components/HamburgerMenu/HamburgerMenu';
 
+
 /*import routes modules*/
 import AppRoutes from './route/AppRoutes';
 
@@ -33,6 +34,9 @@ const App = () => {
   const handleClearGroceryList = () => {
     dispatch({ type: 'CLEAR_GROCERY_LIST' });
   };
+
+  // Redux state management for login status
+  const isLoggedIn = useSelector(state => state.isLoggedIn);
 
   // Offcanvas state
   const [show, setShow] = useState(false);
@@ -75,7 +79,7 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <HamburgerMenu recipes={recipes} dispatch={recipeDispatch} />
+        <HamburgerMenu recipes={recipes} dispatch={recipeDispatch} isLoggedIn={isLoggedIn}/>
 
         <header className="App-header">
           <div className='icon-container'>

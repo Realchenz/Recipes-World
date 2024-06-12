@@ -72,3 +72,10 @@
     background-color: #ebbd34;
     color: white;
   }
+
+  .user-icon {
+    position: fixed;
+    bottom: 20px; 
+    left: 20px;
+    cursor: pointer;
+  }

@@ -35,6 +35,7 @@ mongoose.connect('mongodb://localhost:27017/recipeDB', { useNewUrlParser: true, 
 // define global variable to store recipes
 let recipes = [];
 
+/*Get all recipes*/
 app.get('/api/recipes', async (req, res) => {
   try {
     recipes = await Recipe.find({});
@@ -44,6 +45,7 @@ app.get('/api/recipes', async (req, res) => {
   }
 });
 
+/*Save a Recipe*/
 app.post('/api/recipes',  (req, res) => {
   const body = req.body;
 
@@ -69,6 +71,8 @@ app.post('/api/recipes',  (req, res) => {
   res.status(201).json(newRecipe);
 });
 
+
+/*Delete a recipe by id*/
 app.delete('/api/recipes/:id', async (req, res) => {
   const id = req.params.id;
   console.log('Deleting recipe with id:', id);

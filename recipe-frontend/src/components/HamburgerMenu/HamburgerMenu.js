@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const HamburgerMenu = ({ recipes, dispatch, isLoggedIn }) => {
     const [showSearch, setShowSearch] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
 
     const toggleSearch = () => {
@@ -20,15 +21,18 @@ const HamburgerMenu = ({ recipes, dispatch, isLoggedIn }) => {
     };
 
     const handleUserIconClick = () => {
+      closeMenu();
       if (isLoggedIn) {
         navigate('/profile'); // Redirect to profile page if logged in
       } else {
         navigate('/login'); // Redirect to login page if not logged in
       }
     };
+
+    const closeMenu = () => setIsMenuOpen(false);
   
   return (
-    <Menu>
+    <Menu isOpen={isMenuOpen} onStateChange={({isOpen}) => setIsMenuOpen(isOpen)}>
       <a className="menu-item" href="/">
         Home
       </a>

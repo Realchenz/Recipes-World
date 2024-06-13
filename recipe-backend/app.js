@@ -145,6 +145,23 @@ app.get('/api/user', async (req, res) => {
   }
 });
 
+//validate token 
+app.post('/api/validateToken', (req, res) => {
+  const token = req.body.token;
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      if (err.name === 'TokenExpiredError') {
+        console.log('Token has expired');
+      } else {
+        console.log('Token is invalid');
+      }
+    } else {
+      console.log('Token is valid', decoded);
+    }
+  });
+}
+);
+
 
 const PORT = 8000;
 app.listen(PORT, () => {

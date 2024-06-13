@@ -76,6 +76,27 @@ const App = () => {
     recipeDispatch({ type: 'SET_FILTERED_RECIPES', payload: recipes });
   }, [recipes]);
 
+  // Validate token every 5 minutes
+  const interval = 5 * 60 * 1000; // 5 minutes
+  setInterval(() => {
+    validateToken();
+  }, interval);
+
+  const validateToken = () => {
+    const token = localStorage.getItem('jwtToken');
+    axios.post('http://localhost:8000/api/validateToken', { token })
+      .then(response => {
+        // Assuming the backend sends { valid: true } or { valid: false }
+        if (!response.data.valid) {
+          dispatch({ type: 'LOGOUT'});
+        }
+      })
+      .catch(error => {
+        console.error('Error validating token:', error);
+        dispatch({ type: 'LOGOUT' });
+      });
+  };
+
   return (
     <Router>
       <div className="App">

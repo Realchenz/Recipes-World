@@ -50,7 +50,6 @@ const App = () => {
   useEffect(() => {
     axios.get(`http://localhost:${port}/api/recipes`).then(response => {
       setRecipes(response.data);
-      const recipeData = response.data;
       // console.log(JSON.stringify(recipeData[1])); // console.log(recipes);
     }).catch(error => {
       console.error('Error: ', error);
@@ -76,17 +75,6 @@ const App = () => {
     recipeDispatch({ type: 'SET_FILTERED_RECIPES', payload: recipes });
   }, [recipes]);
 
-  // Validate token every 5 minutes
-  const interval = 5 * 60 * 1000; // 5 minutes
-  setInterval(() => {
-    validateToken();
-  }, interval);
-
-  // Validate token when the app starts
-  useEffect(() => {
-    validateToken();
-  }, []);
-
   const validateToken = () => {
     const token = localStorage.getItem('jwtToken');
     axios.post('http://localhost:8000/api/validateToken', { token })
@@ -102,10 +90,22 @@ const App = () => {
       });
   };
 
+  // Validate token every 5 minutes
+  const interval = 5 * 60 * 1000; // 5 minutes
+  setInterval(() => {
+    validateToken();
+  }, interval);
+
+  // Validate token when the app starts
+  useEffect(() => {
+    validateToken();
+  });
+
   return (
     <Router>
       <div className="App">
-        <HamburgerMenu recipes={recipes} dispatch={recipeDispatch} isLoggedIn={isLoggedIn}/>
+        <HamburgerMenu recipes={recipes} dispatch={recipeDispatch} 
+        isLoggedIn={isLoggedIn}/>
 
         <header className="App-header">
           <div className='icon-container'>

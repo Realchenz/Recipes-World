@@ -39,6 +39,7 @@ const secretKey = process.env.JWT_SECRET;
 const Recipe = require('./models/Recipe');
 const User = require('./models/User');
 const UserInfo = require('./models/UserInfo'); 
+const Favorite = require('./models/Favorite');
 
 // define global variable to store recipes
 let recipes = [];
@@ -164,6 +165,33 @@ app.post('/api/validateToken', (req, res) => {
   });
 }
 );
+
+// 收藏食谱
+app.post('/favorites', async (req, res) => {
+  const  recipeId = req.body.id;
+  const username = req.body.userId;
+  Favorite.findOne({ username, recipeId })
+  .then((favorite) => {
+    if (favorite) {
+      return res.status(400).send('Recipe already in favorites');
+    } else {
+      const favorite = new Favorite({ username, recipeId });
+      favorite.save();
+      res.status(201).send(favorite);
+    }
+  })
+  .catch((err) => {
+    console.error('Error checking favorite:', err);
+    return res.status(500).send('Internal Server Error');
+  });
+});
+
+// 获取用户收藏的食谱
+app.get('/favorites', async (req, res) => {
+  const username = req.body.username;
+  const favorites = await Favorite.find({ username }).populate('recipeId');
+  res.status(200).send(favorites);
+});
 
 
 const PORT = 8000;

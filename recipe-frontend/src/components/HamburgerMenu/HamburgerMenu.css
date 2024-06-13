@@ -6,6 +6,16 @@
     right: 36px;
     top: 36px;
   }
+
+  @media screen and (max-width: 768px) {
+    .bm-burger-button {
+      right: 20px;
+      top: 20px;
+      width: 30px;
+      height: 25px;
+    }
+    
+  }
   
   .bm-burger-bars {
     background: #373a47;

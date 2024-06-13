@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
@@ -43,14 +42,14 @@ const RecipeList = ({ recipes, setRecipes}) => {
                 <Card.Title className="card-title">{recipe.title}</Card.Title>
                 <div className='button-align'>
                   <Link to={`/recipes/${recipe.id}`} className="button-link">
-                    <Button className="button-style" variant="primary" index={recipe.id}>
+                    <button className="button-style" index={recipe.id}>
                       Details
-                    </Button>
+                    </button>
                   </Link>
-                  <Button className="button-style" variant="primary" 
+                  <button className="button-style" 
                   onClick={() => handleRemove(recipe.id)}>
-                    Remove
-                  </Button>
+                    Delete
+                  </button>
                 </div>
               </Card.Body>
             </Card>
@@ -59,14 +58,14 @@ const RecipeList = ({ recipes, setRecipes}) => {
       </Row>
       <Row>
         <div className="pagination-container">
-          <Button onClick={() => setCurrentPage(currentPage - 1)} 
+          <button onClick={() => setCurrentPage(currentPage - 1)} 
           disabled={currentPage === 1}  className="pagination-button">
             Previous
-          </Button>
-          <Button onClick={() => setCurrentPage(currentPage + 1)} 
+          </button>
+          <button onClick={() => setCurrentPage(currentPage + 1)} 
           disabled={currentPage === totalPages} className="pagination-button">
             Next
-          </Button>
+          </button>
         </div>
       </Row>
     </Container>

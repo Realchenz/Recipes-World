@@ -2,7 +2,8 @@
   text-align: center;
   font-family: 'Arial', sans-serif;
   color: #333;
-  padding: 0px;
+  padding: 0;
+  overflow-x: hidden; /* 防止水平滚动条出现 */
 }
 
 .App-header {
@@ -12,13 +13,14 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  font-size: calc(20px + 2vmin);
+  font-size: calc(30px + 1vmin); /* 使用 vmin 单位保证字体大小随视口大小变化 */
   color: white;
   font-family: 'Gwendolyn', cursive;
+  padding: 0 20px; /* 左右边距，可根据需要调整 */
 }
 
 .icon-container {
-  flex: 0 0 auto;
+  flex: 0 0 auto; /* 阻止图标容器伸展 */
 }
 
 .content-container {
@@ -28,44 +30,14 @@
 }
 
 .spacer {
-  flex: 0 0 auto;
+  flex: 0 0  auto; /* 阻止空白区域伸展 */
 }
 
-.custom-nav-dropdown .dropdown-toggle::after {
-  display: none; /* Hide the default arrow */
-}
-
-.custom-nav-dropdown .dropdown-toggle {
-  position: relative; /* Needed for custom arrow positioning */
-}
-
-.custom-nav-dropdown .dropdown-toggle::before {
-  content: "\f063"; /* FontAwesome down arrow icon */
-  font-family: 'FontAwesome'; /* Specify the font family */
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  display: inline-block; 
-}
-
-.recipe-list {
-  margin: 20px 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-.recipe-list-item {
-  cursor: pointer;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  transition: background-color 0.3s;
-}
-
-.recipe-list-item:hover {
-  background-color: #f0f0f0;
+/* 媒体查询：在小屏幕下调整标题字体大小 */
+@media (max-width: 768px) {
+  .App-header {
+    font-size: calc(20px + 1vmin);
+  }
 }
 
 .recipe-details {

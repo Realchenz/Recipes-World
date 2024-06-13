@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import './RecipeDetail.css';
 import ModalWrapper from './ModalWrapper';
 import CarouselWrapper from './CarouselWrapper';
+import { Star } from 'react-bootstrap-icons';
 
 
 const RecipeDetail = ({ recipes, addToGroceryList }) => {
@@ -51,6 +52,41 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
     setShowInstructions(!showInstructions);
   };
 
+  const handleAddtoFavorite = async () => {
+    try {
+      const token = localStorage.getItem('jwtToken'); // Assuming JWT is stored in local storage
+
+      // Validate the token
+      const validateResponse = await axios.post('http://localhost:8000/api/validateToken', { token });
+      if (!validateResponse.data.valid) {
+        alert('Token is invalid or expired, please log in again.');
+        return;
+      }
+
+      // Get user data
+      const userResponse = await axios.get('http://localhost:8000/api/user', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const userId = userResponse.data.username;
+
+      // Add to favorites
+      let res = await axios.post('http://localhost:8000/favorites', { id, userId });
+
+      if (res.status === 400) {
+        alert('Favorite already exists');
+        throw new Error('Favorite already exists');
+      } else if (res.status !== 201) {
+        alert('Failed to add to favorites');
+        throw new Error('Failed to add to favorites');
+      } else {
+        alert('Added to favorites');
+      }
+    } catch (error) {
+      console.error('Error adding favorite:', error);
+    }
+  };
+
   useEffect(() => {
     const fetchIngredientsData = async () => {
       try {
@@ -70,7 +106,7 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
     };
 
     fetchIngredientsData();
-  }, [recipe.ingredients, ingredientsData]);
+  }, [recipe.ingredients, ingredientsData, api_key]);
 
   if (!recipe) {
     return <div>Recipe not found</div>;
@@ -90,10 +126,13 @@ const RecipeDetail = ({ recipes, addToGroceryList }) => {
 
 
   return (
-    <Container className="mt-5">
+    <Container className="mb-5">
       <Row className="justify-content-center">
         <Col xs={10} lg={10}>
-          <h1 className="text-center mb-4 recipe-title">{recipe.title}</h1>
+          <div className='title-box'>
+            <h1 className="text-center mb-4 recipe-title">{recipe.title}</h1>
+            <Star className="favorite-icon" onClick={handleAddtoFavorite}/>
+          </div>
           <Row className="mb-4">
             <Col xs={12} md={6} order={1}>
               <div className="text-muted">

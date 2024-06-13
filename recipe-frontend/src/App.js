@@ -82,6 +82,11 @@ const App = () => {
     validateToken();
   }, interval);
 
+  // Validate token when the app starts
+  useEffect(() => {
+    validateToken();
+  }, []);
+
   const validateToken = () => {
     const token = localStorage.getItem('jwtToken');
     axios.post('http://localhost:8000/api/validateToken', { token })

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import Avatar from './Avatar';
 import UserName from './UserName';
@@ -9,9 +11,11 @@ import UserBio from './UserBio';
 
 import './UserProfile.css';
 
-
-
 const UserProfile = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [user, setUser] = useState({
     username: '',
     avatarUrl: '',
@@ -32,6 +36,7 @@ const UserProfile = () => {
           });
 
           setUser(response.data);
+          // console.log('User data:', response.data);
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
@@ -41,12 +46,21 @@ const UserProfile = () => {
     fetchUserData();
   }, []);
 
+  const handleLogout = () => {
+    alert('Logged out');
+    localStorage.removeItem('jwtToken');
+    dispatch({ type: 'LOGOUT' });
+    navigate('/login');
+  }
+
+
   return (
     <div className="user-profile">
-      <Avatar avatarUrl={user.avatarUrl} />
+      <Avatar initialAvatarUrl={user.avatarUrl} />
       <UserName name={user.name} />
       <UserEmail email={user.email} />
       <UserBio bio={user.bio} />
+      <button onClick={handleLogout} className='logout-btn'>Logout</button>
     </div>
   );
 };

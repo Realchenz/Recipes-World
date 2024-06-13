@@ -152,11 +152,14 @@ app.post('/api/validateToken', (req, res) => {
     if (err) {
       if (err.name === 'TokenExpiredError') {
         console.log('Token has expired');
+        res.json({ valid: false });
       } else {
         console.log('Token is invalid');
+        res.json({ valid: false });
       }
     } else {
       console.log('Token is valid', decoded);
+      res.json({ valid: true });
     }
   });
 }

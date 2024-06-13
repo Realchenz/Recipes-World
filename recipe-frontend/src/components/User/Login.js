@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
 const Login = () => {
@@ -21,11 +21,12 @@ const Login = () => {
       if (response.data.success) {
         // Login successful, handle accordingly
         console.log('Login successful');
+        alert('Login successful');
         // Update the Redux state to reflect the user is logged in
         dispatch({ type: 'LOGIN' });
 
         localStorage.setItem('jwtToken', response.data.token);
-        navigate('/'); // Redirect to home page
+        navigate('/profile'); // Redirect to home page
       } else {
         setError(response.data.message);
       }
